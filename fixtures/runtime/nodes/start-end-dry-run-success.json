@@ -1,0 +1,15 @@
+{
+  "mode": "DRY_RUN",
+  "allowedNodes": [
+    "START",
+    "END"
+  ],
+  "outputContextRule": "inputContext is returned unchanged",
+  "traceFields": [
+    "nodeId",
+    "nodeType",
+    "status",
+    "startedAt",
+    "finishedAt"
+  ]
+}

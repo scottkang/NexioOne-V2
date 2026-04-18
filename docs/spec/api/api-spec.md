@@ -272,17 +272,33 @@ Response `200`:
   "trace": [
     {
       "nodeId": "start",
-      "status": "SUCCEEDED"
+      "nodeType": "START",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:30:00Z",
+      "finishedAt": "2026-04-18T09:30:00Z"
+    },
+    {
+      "nodeId": "end",
+      "nodeType": "END",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:30:00Z",
+      "finishedAt": "2026-04-18T09:30:00Z"
     }
   ]
 }
 ```
+
+Fixture:
+- `fixtures/api/runtime/dry-run-happy-request.json`
+- `fixtures/api/runtime/dry-run-happy-response.json`
+- `fixtures/api/runtime/dry-run-unsupported-node-response.json`
 
 Validation:
 - `inputContext`는 object
 - `options.trace`, `options.validateOnly`는 boolean
 - Flow 미존재 시 `404`
 - Flow 구조 오류 시 `422`
+- `DRY_RUN`은 `START`, `END`만 실행 의미론 대상으로 간주하며 `outputContext`는 `inputContext`를 그대로 반환한다.
 
 ## 7. Execute-Stub API
 
@@ -317,7 +333,10 @@ Sync Response `200`:
   "steps": [
     {
       "nodeId": "start",
-      "status": "SUCCEEDED"
+      "nodeType": "START",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:00Z",
+      "finishedAt": "2026-04-18T09:32:00Z"
     }
   ]
 }
@@ -335,9 +354,19 @@ Async Response `202`:
 }
 ```
 
+Fixture:
+- `fixtures/api/runtime/execute-stub-sync-happy-request.json`
+- `fixtures/api/runtime/execute-stub-sync-happy-response.json`
+- `fixtures/api/runtime/execute-stub-async-accepted-request.json`
+- `fixtures/api/runtime/execute-stub-async-accepted-response.json`
+- `fixtures/api/runtime/execute-stub-idempotency-conflict-response.json`
+- `fixtures/api/runtime/execution-status-running-response.json`
+
 Validation:
 - `options.async` 미지정 시 `false`
 - 비동기 접수 후 중복 실행 요청 충돌 시 `409`
+- `EXECUTE_STUB` step은 최소 `nodeId`, `nodeType`, `status`, `startedAt`, `finishedAt`를 포함한다.
+- `MAPPING`은 merge 결과를 `outputContext`에 반영하고, `REST_CLIENT`, `SQL_EXECUTOR`는 stub result를 `outputContext` 하위 key에 기록한다.
 
 ## 8. 우선 고정 대상 조회 API
 
@@ -363,6 +392,9 @@ Response `200`:
   "statusOwner": "my-backend"
 }
 ```
+
+Fixture:
+- `fixtures/api/runtime/execution-status-running-response.json`
 
 상태 규칙:
 - `ACCEPTED`, `RUNNING`은 runtime이 직접 반환하는 진행 상태다.

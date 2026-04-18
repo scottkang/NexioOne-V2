@@ -1,0 +1,8 @@
+{
+  "requestId": "req-20260418-0001",
+  "executionId": "stub-20260418-0002",
+  "mode": "EXECUTE_STUB",
+  "status": "ACCEPTED",
+  "statusUrl": "/api/projects/1/runtime/executions/stub-20260418-0002",
+  "statusOwner": "my-backend"
+}

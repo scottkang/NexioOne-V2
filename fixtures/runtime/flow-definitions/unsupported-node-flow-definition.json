@@ -1,0 +1,34 @@
+{
+  "flowId": 10,
+  "flowKey": "customer-sync",
+  "version": "v1",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "START",
+      "config": {}
+    },
+    {
+      "id": "wait-1",
+      "type": "WAIT",
+      "config": {
+        "duration": "PT1M"
+      }
+    },
+    {
+      "id": "end",
+      "type": "END",
+      "config": {}
+    }
+  ],
+  "edges": [
+    {
+      "sourceNodeId": "start",
+      "targetNodeId": "wait-1"
+    },
+    {
+      "sourceNodeId": "wait-1",
+      "targetNodeId": "end"
+    }
+  ]
+}

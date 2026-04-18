@@ -1,0 +1,14 @@
+{
+  "nodeType": "REST_CLIENT",
+  "requiredConfig": [
+    "method",
+    "path"
+  ],
+  "stubOutput": {
+    "response": {
+      "statusCode": 200,
+      "stubbed": true
+    }
+  },
+  "retryable": true
+}

@@ -1,0 +1,27 @@
+{
+  "executionId": "dryrun-20260418-0001",
+  "flowId": 10,
+  "mode": "DRY_RUN",
+  "status": "SUCCEEDED",
+  "validationErrors": [],
+  "outputContext": {
+    "customerId": "C100",
+    "source": "crm"
+  },
+  "trace": [
+    {
+      "nodeId": "start",
+      "nodeType": "START",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:30:00Z",
+      "finishedAt": "2026-04-18T09:30:00Z"
+    },
+    {
+      "nodeId": "end",
+      "nodeType": "END",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:30:00Z",
+      "finishedAt": "2026-04-18T09:30:00Z"
+    }
+  ]
+}

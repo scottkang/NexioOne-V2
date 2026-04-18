@@ -1,0 +1,14 @@
+{
+  "nodeType": "SQL_EXECUTOR",
+  "requiredConfig": [
+    "statementType",
+    "sql"
+  ],
+  "stubOutput": {
+    "sqlResult": {
+      "rowsAffected": 1,
+      "stubbed": true
+    }
+  },
+  "retryable": true
+}

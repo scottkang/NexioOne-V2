@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-18T09:34:00Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2001",
+  "message": "node config validation failed",
+  "details": [
+    {
+      "field": "flowDefinition.nodes[2].config.method",
+      "reason": "must not be blank"
+    },
+    {
+      "field": "flowDefinition.nodes[2].config.path",
+      "reason": "must not be blank"
+    }
+  ]
+}

@@ -38,11 +38,11 @@
 | Connection CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Masking Test | masked response fixture |
 | Flow Data Binding | `docs/spec/api/control-plane-api-baseline.md`, `docs/spec/data/flow-owned-data-definition-roles.md` | `my-console-backend` | API/Relation Validation Test | binding fixture |
 | Connection Profile Contract | `docs/spec/data/connection-profile-contract.md` | `my-console-backend`, `my-backend` | API/Contract Test | jdbc/rest fixture |
-| Internal ExecuteRequest Contract | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/api/internal-execution-schema.md` | `my-console-backend`, `my-backend` | Contract Test | `execute-request-with-flow-bindings.json` |
-| Deployment 생성/상태변경/롤백 | `docs/spec/api/api-spec.md` | `my-console-backend` | API/Service/Contract Test | `deployment-create.json`, `deployment-status-transition.json`, `deployment-rollback.json` |
-| Flow Dry-Run | `docs/spec/api/api-spec.md` | `my-console-backend`, `my-backend` | API/Integration Test | `dry-run-success.json`, `dry-run-invalid-flow.json` |
-| Flow Execute-Stub | `docs/spec/api/api-spec.md`, `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-node-support-matrix.md` | `my-console-backend`, `my-backend` | API/Integration/Contract Test | `execute-stub-sync-success.json`, `execute-stub-async-accepted.json`, `execute-stub-idempotency-conflict.json`, `mapping-node-stub-success.json` |
-| Runtime Status 조회 | `docs/spec/api/api-spec.md`, `docs/spec/runtime/runtime-operations-spec.md` | `my-console-backend`, `my-backend` | API Test | `runtime-skeleton.json`, `runtime-execution-running.json` |
+| Internal ExecuteRequest Contract | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/api/internal-execution-schema.md` | `my-console-backend`, `my-backend` | Contract Test | `fixtures/runtime/execute-request-with-flow-bindings.json` |
+| Deployment 생성/상태변경/롤백 | `docs/spec/api/api-spec.md` | `my-console-backend` | API/Service/Contract Test | deployment fixture planned in next baseline |
+| Flow Dry-Run | `docs/spec/api/api-spec.md` | `my-console-backend`, `my-backend` | API/Integration Test | `fixtures/api/runtime/dry-run-happy-response.json`, `fixtures/api/runtime/dry-run-unsupported-node-response.json` |
+| Flow Execute-Stub | `docs/spec/api/api-spec.md`, `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-node-support-matrix.md` | `my-console-backend`, `my-backend` | API/Integration/Contract Test | `fixtures/api/runtime/execute-stub-sync-happy-response.json`, `fixtures/api/runtime/execute-stub-async-accepted-response.json`, `fixtures/api/runtime/execute-stub-idempotency-conflict-response.json`, `fixtures/runtime/nodes/mapping-node-stub-success.json` |
+| Runtime Status 조회 | `docs/spec/api/api-spec.md`, `docs/spec/runtime/runtime-operations-spec.md` | `my-console-backend`, `my-backend` | API Test | `fixtures/api/runtime/execution-status-running-response.json` |
 | Execution Event 전달 | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-event-schema.md` | `my-backend`, `logging-service` | Producer Contract/Consumer Test | `event-started.json`, `event-step-completed.json`, `event-completed.json`, `event-failed.json` |
 
 ## 6. 참조

@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:33:00Z",
+  "status": 409,
+  "error": "Conflict",
+  "code": "BE-2103",
+  "message": "execution request already accepted with the same idempotency key",
+  "path": "/api/projects/1/runtime/flows/10/execute-stub",
+  "details": [
+    {
+      "field": "idempotencyKey",
+      "reason": "duplicate request"
+    }
+  ],
+  "traceId": "trace-20260418-0003"
+}

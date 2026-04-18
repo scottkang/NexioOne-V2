@@ -1,0 +1,9 @@
+{
+  "executionId": "stub-20260418-0002",
+  "mode": "EXECUTE_STUB",
+  "status": "RUNNING",
+  "requestedAt": "2026-04-18T09:30:00Z",
+  "startedAt": "2026-04-18T09:30:01Z",
+  "finishedAt": null,
+  "statusOwner": "my-backend"
+}
