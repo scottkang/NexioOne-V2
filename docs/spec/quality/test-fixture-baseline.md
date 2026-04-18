@@ -105,6 +105,8 @@ fixtures/
 ### 5.5 Connection
 - `connection-create-jdbc-happy-request/response`
 - `connection-create-rest-bearer-happy-request/response`
+- `connection-create-mq-happy-request/response`
+- `connection-create-sftp-happy-request/response`
 - `connection-detail-masked-response`
 - `connection-create-invalid-response`
 
@@ -113,8 +115,14 @@ fixtures/
 - `fixtures/api/connections/connection-create-jdbc-happy-response.json`
 - `fixtures/api/connections/connection-create-rest-bearer-happy-request.json`
 - `fixtures/api/connections/connection-create-rest-bearer-happy-response.json`
+- `fixtures/api/connections/connection-create-mq-happy-request.json`
+- `fixtures/api/connections/connection-create-mq-happy-response.json`
+- `fixtures/api/connections/connection-create-sftp-happy-request.json`
+- `fixtures/api/connections/connection-create-sftp-happy-response.json`
 - `fixtures/api/connections/connection-detail-masked-response.json`
 - `fixtures/api/connections/connection-create-invalid-response.json`
+- `fixtures/api/connections/connection-create-mq-invalid-response.json`
+- `fixtures/api/connections/connection-create-sftp-invalid-response.json`
 
 ### 5.6 Deployment / Runtime
 - `deployment-create-happy-request/response`
@@ -150,6 +158,7 @@ fixtures/
   - `fixtures/api/runtime/execute-stub-idempotency-conflict-response.json`
   - `fixtures/api/runtime/execution-status-running-response.json`
 - Runtime contract:
+  - `fixtures/runtime/connection-profiles-mixed.json`
   - `fixtures/runtime/execute-request-with-flow-bindings.json`
   - `fixtures/runtime/flow-binding-snapshot-versioned.json`
   - `fixtures/runtime/flow-definitions/unsupported-node-flow-definition.json`
@@ -194,6 +203,7 @@ fixtures/
   - `EXECUTE_STUB`은 지원 노드 step 결과와 `outputContext` 조립 규칙을 남김
   - idempotency conflict 응답 일치
   - `flowBindings` snapshot 포함 여부
+  - `connectionProfiles` 유형별 필수 field / `secretsRef` key 일치
   - node별 stub output shape 일치
 - event fixture:
   - envelope 구조

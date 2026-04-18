@@ -1,0 +1,14 @@
+{
+  "name": "order-events",
+  "type": "MQ",
+  "properties": {
+    "brokerUrl": "amqp://mq.internal:5672",
+    "destinationType": "QUEUE",
+    "destinationName": "order.created",
+    "ackMode": "CLIENT"
+  },
+  "secrets": {
+    "username": "mq-app",
+    "password": "masked-or-write-only"
+  }
+}

@@ -137,6 +137,8 @@ Validation Rules:
 - `properties`에 `password`, `token`, `secret`, `privateKey` 직접 포함 금지
 - `FlowNode.connectionRef`가 있으면 동일 `id`의 profile이 존재해야 함
 - 유형별 필수/옵션 필드와 secret key 규칙은 `connection-profile-contract.md`를 따른다.
+- runtime은 type별 허용 `secretsRef` key 외의 추가 key를 허용하지 않는다.
+- 동일 execution payload 안에서 `connectionProfiles[].id`는 유일해야 한다.
 
 ## 6. InputContext Schema
 - JSON object
