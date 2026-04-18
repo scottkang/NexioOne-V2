@@ -5,6 +5,8 @@
 ## 개요
 NexioOne의 핵심 워크플로우 실행 엔진(Runtime)으로, `my-console-backend`로부터 전달된 워크플로우(Flow)와 연결 정보(Connection)를 바탕으로 실행을 담당할 Stateless 워커 인스턴스이다.
 
+이번 프로그램 포함 범위는 `docs/spec/foundation/release-scope.md`를 우선 기준으로 해석한다. 본 문서의 차기 범위 항목은 MVP 포함 여부 판단 기준이 아니다.
+
 ## 기술 스택
 - **Framework**: Spring Boot
 - **Messaging**: RabbitMQ (Execution Event Outbox) - 이번 프로그램 포함
@@ -54,6 +56,19 @@ sequenceDiagram
 
 ### 5. Runtime Instance Registry
 - 실시간 인스턴스 등록 및 상태 모니터링 기능은 차기 범위다.
+
+## 이번 프로그램 / 차기 프로그램 구분
+
+### 이번 프로그램 포함
+- `DRY_RUN`, `EXECUTE_STUB`, execution status 조회
+- `START`, `END`, `MAPPING`, `REST_CLIENT`, `SQL_EXECUTOR` 범위의 stub 실행
+- RabbitMQ 기반 execution event 발행
+
+### 차기 프로그램
+- real connector 실행
+- Redis 기반 snapshot/config sync
+- Quartz 기반 실제 분산 스케줄링
+- XA/2PC 및 고급 node type 지원
 
 ## 연관 문서
 - [Runtime Schedule Distribution Architecture](../runtime/runtime-schedule-distribution-architecture.md)

@@ -4,6 +4,10 @@
 - 본 문서는 NexioOne 제품 개발의 기준 범위와 우선 구현 대상을 정의한다.
 - 기준 시점: `2026-04-18`
 
+## 1.1 해석 규칙
+- 이번 프로그램의 포함/제외 범위 판정은 `docs/spec/foundation/release-scope.md`를 단일 기준으로 사용한다.
+- 본 문서는 제품 방향과 모듈별 목표 상태를 설명하는 상위 기준 문서이며, 범위 충돌 시 `release-scope.md`를 우선한다.
+
 ## 2. 제품 범위
 - 프론트엔드: `my-console`
 - 제어 평면 백엔드: `my-console-backend`
@@ -34,6 +38,13 @@
 - 고도화된 분산 스케줄링, 자동 DLQ 재주입, 장기 SLO 튜닝
 - 대용량 스트리밍, L1/L2/L3 계층 저장소, SPLIT/JOIN, WAIT, FLOW_TASK의 완전 구현
 
+## 5.1 차기 프로그램 후보 범위
+- real connector 기반 실제 실행
+- Redis / Quartz 기반 분산 스케줄링 및 config sync 고도화
+- XA/2PC 또는 동등 수준의 분산 트랜잭션
+- object storage archive, DLQ 재주입, 고급 운영 자동화
+- 고급 node type (`WAIT`, `SPLIT/JOIN`, `FLOW_TASK`, file 계열, batch 계열)
+
 ## 6. 모듈별 목표 상태
 | 모듈 | 현재 | 이번 프로그램 목표 |
 |---|---|---|
@@ -51,6 +62,7 @@
 5. `api-gw` 설정 동기화 및 기본 프록시 구조
 
 ## 8. 완료 기준
+- `release-scope.md`와 모듈 문서가 같은 현재/차기 범위 해석을 갖는다.
 - In Scope 모듈별 최소 API 계약이 문서와 테스트로 고정된다.
 - `dry-run`, `execute-stub`, deployment, runtime 조회 API의 request/response/error 형식이 문서화된다.
 - `my-console-backend -> my-backend` payload 및 비동기/idempotency 규칙이 문서화된다.
