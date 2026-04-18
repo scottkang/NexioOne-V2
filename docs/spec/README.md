@@ -80,6 +80,7 @@
 - `foundation/development-readiness-checklist.md`: 개발 착수 전 보완 체크리스트
 - `foundation/development-gap-analysis.md`: 개발 착수 전 P0/P1 보완 backlog와 충돌 항목 정리
 - `foundation/p0-development-start-checklist.md`: 개발 착수 전 먼저 닫아야 할 P0 실행 체크리스트
+- `foundation/development-execution-backlog.md`: 개발 착수 전후 세션 단위 실행 backlog
 - `foundation/traceability-spec.md`: 기능-문서-테스트 추적 규격
 - `foundation/functional-dod-matrix.md`: 기능별 완료 기준과 최소 테스트 기준
 
