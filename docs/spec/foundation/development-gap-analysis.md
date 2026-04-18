@@ -6,9 +6,9 @@
 
 ## 1. 판정
 - 현재 `docs/spec`는 개발 목표와 방향성은 충분히 담고 있다.
-- 2026-04-18 보강 이후 범위, 오류 체계, 이벤트 스키마의 큰 충돌은 대부분 정리되었다.
-- 하지만 구현 기준으로 바로 사용하기에는 일부 CRUD 상세 DTO, 실행 상태 read path, binding 영속화 세부 구현에서 보완 항목이 남아 있다.
-- 따라서 현재 판정은 `개발 착수 보완 필요`다.
+- 2026-04-18 보강 이후 범위, 오류 체계, 이벤트 스키마, fixture/traceability, 프론트 권한 정합성의 큰 충돌은 대부분 정리되었다.
+- 하지만 구현 기준으로 바로 사용하기에는 binding 전환 규칙, connection 유형별 세부 계약, 문서 상태/링크 체계에서 보완 항목이 남아 있다.
+- 따라서 현재 판정은 `개발 착수 가능 + P1 보완 잔여`다.
 
 ## 2. 핵심 리스크 요약
 
@@ -68,55 +68,39 @@
   - 암호화 저장과 runtime 전달 규칙 연결
 
 ### P1-3. 기능별 DoD와 테스트 매핑 부족
-- `qa-testing-strategy.md`는 전략 수준이며, 현재 릴리즈 기능별 테스트 책임과 샘플 데이터셋은 없다.
-- `traceability-spec.md`의 핵심 evidence 파일명은 보강되었지만 실제 fixture 파일 생성은 남아 있다.
-- 필요 결정:
-  - 기능별 happy path / validation error / auth error / runtime failure 샘플 확정
-  - `my-console-backend <-> my-backend`, `my-backend <-> logging-service` contract test 책임 주체 확정
+- `qa-testing-strategy.md`, `traceability-spec.md`, `functional-dod-matrix.md`, `fixtures/` baseline이 보강되어 이 항목은 해결 완료로 본다.
 
 ### P1-4. 문서 링크와 상태 체계 정리 필요
-- 일부 모듈 문서는 저장소에 없는 참조 문서를 링크한다.
-- 문서별 `Baseline`, `Draft`, `Design`, `Reference` 사용 목적은 아직 인덱스 수준에서만 언급된다.
+- 프론트 권한 예시와 화면/API/상태 모델 매핑은 정리되었지만, 일부 문서의 상태 표기와 링크 정합성은 여전히 추가 정리가 필요하다.
 - 필요 결정:
   - 깨진 링크 제거 또는 문서 생성
   - 각 문서 상단 상태와 용도를 일관되게 표기
 
 ## 4. 권장 착수 순서
-1. `release-scope`를 확정한다.
-2. 외부 API 계약을 확정한다.
-3. 내부 실행 payload와 runtime 이벤트 스키마를 확정한다.
-4. 에러 응답 형식과 코드 체계를 통일한다.
-5. 런타임 1차 지원 노드와 비지원 항목을 표로 고정한다.
-6. DataDefinition/Connection 계약을 보강한다.
-7. 기능별 DoD와 계약 테스트 대상을 추적성 문서에 연결한다.
+1. `DataDefinition` / binding 전환 규칙을 확정한다.
+2. `Connection` 유형별 계약을 확정한다.
+3. 문서 상태 표기와 링크 체계를 정리한다.
 
 ## 5. 권장 산출물
-- `release-scope.md`
-  - 이번 프로그램 `in scope / out of scope / dependency / target milestone`
-- `control-plane-api-baseline.md` 또는 OpenAPI
-  - 인증, 프로젝트, Flow, DataDefinition, Connection, Deployment API
-- `runtime-event-schema.md`
-  - envelope, event type, 필수 필드, 샘플 payload, DLQ 규칙
-- `error-response-baseline.md`
-  - `ApiErrorResponse`, code system, HTTP mapping, 예시
-- `runtime-node-support-matrix.md`
-  - 1차 지원 노드, 차기 노드, 실패/재시도 의미론
-- `functional-dod-matrix.md`
-  - 기능별 코드/테스트/문서/운영 증적 기준
+- `flow-owned-data-definition-roles.md`
+  - binding versioning, deprecated field transition, update conflict 정책
+- `connection-profile-contract.md`
+  - JDBC/REST/MQ/SFTP별 필수/옵션 필드, secret key, runtime 전달 규칙
+- 문서 상태/링크 정리 diff
+  - `Baseline`, `Draft/Design`, `Not Implemented` 표기 정렬
+  - 깨진 링크 제거 또는 보완
 
 ## 6. 문서별 조치 제안
 | 문서 | 조치 | 우선순위 |
 |---|---|---|
-| `product-spec.md` | 현재 릴리즈와 차기 범위 분리 보강 | P0 |
-| `api-spec.md` | 제어 평면 CRUD/API 범위 반영 또는 범위 축소 명시 | P0 |
-| `api-dto-baseline.md` | 에러 DTO를 전역 규격에 맞게 통일 | P0 |
-| `internal-api-contract-design.md` | runtime 이벤트 계약 단일안으로 재작성 | P0 |
-| `runtime-execution-logging-architecture.md` | P0 단일 계약과 합치되도록 축소/정렬 | P0 |
-| `global-error-code-map.md` | 코드 체계와 에러 응답 구조 통일 | P0 |
-| `modules/my-backend.md` | 1차 구현 범위와 차기 목표를 분리 | P0 |
 | `flow-owned-data-definition-roles.md` | 채택 여부와 전환 시점 명시 | P1 |
+| `control-plane-api-baseline.md` | binding conflict / deprecated field 처리 규칙 연결 | P1 |
+| `internal-execution-schema.md` | binding snapshot/versioning 규칙 명문화 | P1 |
+| `connection-profile-contract.md` | 유형별 계약 표와 validation 규칙 보강 | P1 |
+| `security-encryption-design.md` | connection secret 저장/전달 규칙 연결 | P1 |
 | `qa-testing-strategy.md` | 기능별 테스트 매핑 표 추가 | P1 |
-| `traceability-spec.md` | 기능-계약-테스트-증적 연결 보강 | P1 |
+| `traceability-spec.md` | 기능-계약-테스트-증적 연결 보강 | Done |
+| `frontend-development-guide.md` | 화면/API/권한/상태 모델 매핑 보강 | Done |
 
 ## 7. 개발 착수 기준
 - 아래가 충족되면 개발 착수 가능으로 본다.
@@ -125,6 +109,8 @@
   - 에러 응답과 코드 체계가 통일됨
   - 런타임 1차 지원 범위가 고정됨
   - 기능별 최소 테스트와 contract test 책임 주체가 정의됨
+- 현재 판정:
+  - 위 기준은 충족되며, 남은 항목은 구현 리스크를 더 줄이기 위한 P1 보강으로 관리한다.
 
 ## 8. 참조
 - `docs/spec/foundation/product-spec.md`
