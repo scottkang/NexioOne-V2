@@ -230,6 +230,8 @@ Response `202`:
 - `logging-service`는 이벤트 소비 후 execution read model의 정본을 구축한다.
 - 이 read model은 사용자용 실행 이력/검색/운영 조회에 사용한다.
 - 실행 제어 목적의 단건 상태 조회 정본은 여전히 `my-backend`다.
+- stage 1에서 `my-console-backend`는 `logging-service` DB/전용 schema direct read로 이 read model을 조회한다.
+- read API 전환은 차기 범위다.
 
 ### 5.2 Common Event Fields
 ```json
@@ -316,6 +318,14 @@ Response `202`:
 - `execution.step.completed`는 최소 `nodeId`, `status`, `durationMs`를 포함해야 한다.
 - `execution.completed`, `execution.failed`는 `startedAt`, `finishedAt`, `durationMs`를 포함해야 한다.
 - step/event payload에는 secret 원문, `secretsRef` 전체 object, connection secret key를 포함하지 않는다.
+- `inputContext`, `outputContext` 전체 원문은 이번 프로그램 projection 기본 필드에 포함하지 않는다.
+
+### 5.7 DLQ 기준
+- schema invalid
+- 역직렬화 불가
+- 필수 필드 누락
+- persistence 재시도 한도 초과
+- 이번 프로그램에는 자동 DLQ 재주입을 포함하지 않는다.
 
 ## 6. 버전 및 호환 정책
 - 새 필드는 optional로만 추가한다.

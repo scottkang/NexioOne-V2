@@ -38,6 +38,7 @@ flowchart LR
 - runtime과 logging 사이의 통신은 메시지 큐 기반 비동기 전달로 분리한다.
 - 전달 보장은 `at-least-once`를 기준으로 설계하고, 소비자 측 멱등성으로 중복을 흡수한다.
 - stage 1에서 비동기 실행의 진행 상태 정본은 `my-backend`이며, `logging-service`는 완료/이력 read model을 담당한다.
+- stage 1에서 `my-console-backend`의 logging read path는 `logging-service` DB/전용 schema direct read로 시작한다.
 
 ## 5. 큐 선택 제안
 권장안: `RabbitMQ + quorum queue`
@@ -130,6 +131,13 @@ outbox 저장소 초기안:
   - durable
   - 필요 시 운영자 수동 재주입 또는 별도 replayer 사용
 
+DLQ 이동 기준:
+- schema invalid
+- 역직렬화 불가
+- 필수 필드 누락
+- persistence 재시도 한도 초과
+- 위 외의 일시적 오류는 재시도 후 처리
+
 ## 10. logging-service 책임
 - MQ consumer로 execution 이벤트 수신
 - envelope/schema validation
@@ -145,6 +153,11 @@ outbox 저장소 초기안:
   - `executionId`, `flowKey`, `projectId`, `status`, `startedAt`, `finishedAt`, `durationMs`, `triggerType`, `requestedBy`
 - `execution_step`
   - `executionId`, `stepOrder`, `stepId`, `status`, `durationMs`, `message`
+
+Projection 규칙:
+- `execution_event`는 원본 envelope 보존용이다.
+- `execution_record`, `execution_step`은 조회 최적화 projection이며 payload 전체 복제를 금지한다.
+- `connectionProfiles`, `flowBindings`, secret 원문, `secretsRef`, binding schema 전체는 projection에 저장하지 않는다.
 
 분리 이유:
 - 원본 이벤트 보존과 조회 최적화 read model을 분리하면 schema evolution 대응이 쉽다.
@@ -165,7 +178,7 @@ outbox 저장소 초기안:
   - 상태/기간별 summary
 
 권장 방향:
-- 1차는 `my-console-backend -> logging DB read replica/전용 schema` 직접 조회
+- 1차는 `my-console-backend -> logging DB read replica/전용 schema` 직접 조회로 고정
 - 2차는 서비스 경계 강화를 위해 `my-console-backend -> logging-service read API`로 전환 검토
 
 ## 12. 실패/재처리 정책
@@ -178,6 +191,10 @@ outbox 저장소 초기안:
   - idempotent upsert 후 ack
 - poison message:
   - schema invalid, 필수 필드 누락, 역직렬화 불가 시 DLQ 이동
+
+권장 retry 기준:
+- consumer persistence 오류: 최대 3회 재시도 후 DLQ
+- schema invalid / 역직렬화 불가 / 필수 필드 누락: 재시도 없이 즉시 DLQ
 
 운영 메트릭:
 - runtime:
@@ -216,7 +233,6 @@ outbox 저장소 초기안:
 ## 15. 오픈 이슈
 - logging 저장소를 독립 DB로 둘지, 기존 운영 DB 내 별도 schema로 둘지 결정 필요
 - result 원문 저장 상한과 압축 정책 결정 필요
-- `my-console-backend`가 DB 직접 조회를 허용할지, logging-service read API를 강제할지 결정 필요
 - replay/DLQ 재주입 권한 모델 정리가 필요
 
 ## 16. 구현 원칙 요약

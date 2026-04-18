@@ -125,13 +125,15 @@ flowchart LR
 2. publisher worker가 RabbitMQ로 publish한다.
 3. `logging-service`가 event를 consume한다.
 4. `execution_event`, `execution_record`, `execution_step`에 upsert한다.
-5. `my-console-backend`가 read model을 조회해 UI에 제공한다.
+5. `my-console-backend`가 logging DB/전용 schema direct read로 read model을 조회해 UI에 제공한다.
 
 ### 4.5 상태 조회 Ownership
 - `GET /api/projects/{projectId}/runtime/executions/{executionId}`의 정본은 `my-backend`다.
 - 실행 중 상태(`ACCEPTED`, `RUNNING`)는 `logging-service` 적재 지연과 무관하게 `my-backend` 기준을 우선한다.
 - 완료 후 장기 이력/검색/목록 조회는 `logging-service` read model을 사용한다.
 - 이번 프로그램에서는 제어 상태 조회와 이력 조회를 별도 API 책임으로 분리한다.
+- stage 1 read path는 `my-console-backend -> logging DB/전용 schema direct read로 고정한다.
+- logging read API는 차기 범위다.
 
 ## 5. 트랜잭션 처리 수준
 
