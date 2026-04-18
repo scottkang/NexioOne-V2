@@ -330,7 +330,8 @@ Async Response `202`:
   "executionId": "stub-20260418-0002",
   "mode": "EXECUTE_STUB",
   "status": "ACCEPTED",
-  "statusUrl": "/api/projects/1/runtime/executions/stub-20260418-0002"
+  "statusUrl": "/api/projects/1/runtime/executions/stub-20260418-0002",
+  "statusOwner": "my-backend"
 }
 ```
 
@@ -345,7 +346,10 @@ Validation:
 - 권한: `RUNTIME_READ`
 - 정본: `my-backend`
 - 목적: 비동기 실행 제어 상태 조회
-- 참고: 사용자용 장기 이력/검색 API는 차후 `my-console-backend -> logging-service` read model 경로로 확장할 수 있다.
+- 해석 규칙:
+  - 이 API는 실행 제어용 단건 상태 조회다.
+  - 사용자용 장기 이력/검색 API는 본 문서 범위가 아니며, 차후 `my-console-backend -> logging-service` read model 경로로 별도 고정한다.
+  - `my-console-backend`는 이 경로에서 `my-backend` 정본 상태를 중계하거나 동등 의미로 반환해야 한다.
 
 Response `200`:
 ```json
@@ -355,13 +359,15 @@ Response `200`:
   "status": "RUNNING",
   "requestedAt": "2026-04-18T09:30:00Z",
   "startedAt": "2026-04-18T09:30:01Z",
-  "finishedAt": null
+  "finishedAt": null,
+  "statusOwner": "my-backend"
 }
 ```
 
 상태 규칙:
 - `ACCEPTED`, `RUNNING`은 runtime이 직접 반환하는 진행 상태다.
 - `SUCCEEDED`, `FAILED`, `CANCELED`는 최종 상태다.
+- 이 엔드포인트는 목록/검색/장기 이력 API를 대체하지 않는다.
 - 존재하지 않는 `executionId`는 `404`
 - scope 밖 프로젝트 접근은 `403`
 

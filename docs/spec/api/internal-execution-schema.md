@@ -4,6 +4,10 @@
 - 본 문서는 `my-console-backend -> my-backend` 실행 payload를 구조 단위로 고정한다.
 - 본 문서는 `internal-api-contract-design.md`의 필드 정의를 세부 schema 형태로 정리한 부속 문서다.
 
+## 1.1 상태 Ownership 규칙
+- `Async Accepted Response`와 `Execution Status Response`는 실행 제어용 상태를 표현하며 정본은 `my-backend`다.
+- execution history/read model은 본 문서 범위가 아니며 `logging-service` consumer/read model 문서에서 다룬다.
+
 ## 2. ExecuteRequest
 ```json
 {
@@ -211,12 +215,46 @@ Validation Rules:
   "requestId": "req-20260418-0001",
   "executionId": "exec-20260418-0002",
   "status": "ACCEPTED",
-  "statusUrl": "/api/projects/1/runtime/executions/exec-20260418-0002"
+  "statusUrl": "/api/projects/1/runtime/executions/exec-20260418-0002",
+  "statusOwner": "my-backend"
 }
 ```
 
-## 10. Idempotency Validation Rules
+| Field | Type | Required | Rules |
+|---|---|---|---|
+| `requestId` | string | Y | 접수 요청 식별자 |
+| `executionId` | string | Y | 실행 식별자 |
+| `status` | string | Y | `ACCEPTED` 고정 |
+| `statusUrl` | string | Y | 외부 execution status 조회 경로 |
+| `statusOwner` | string | Y | `my-backend` 고정 |
+
+## 10. Execution Status Response Schema
+```json
+{
+  "executionId": "exec-20260418-0002",
+  "mode": "EXECUTE_STUB",
+  "status": "RUNNING",
+  "requestedAt": "2026-04-18T09:30:00Z",
+  "startedAt": "2026-04-18T09:30:01Z",
+  "finishedAt": null,
+  "statusOwner": "my-backend"
+}
+```
+
+| Field | Type | Required | Rules |
+|---|---|---|---|
+| `executionId` | string | Y | 실행 식별자 |
+| `mode` | string | Y | `DRY_RUN`, `EXECUTE_STUB` |
+| `status` | string | Y | `ACCEPTED`, `RUNNING`, `SUCCEEDED`, `FAILED`, `CANCELED` |
+| `requestedAt` | string | Y | ISO-8601 UTC |
+| `startedAt` | string | N | 실행 시작 전이면 `null` 가능 |
+| `finishedAt` | string | N | 종료 전이면 `null` |
+| `statusOwner` | string | Y | `my-backend` 고정 |
+
+## 11. Idempotency Validation Rules
 - `Idempotency-Key`는 비동기 요청에서만 허용
 - 동일 key + 동일 payload: 기존 응답 재사용
 - 동일 key + 다른 payload: `409 Conflict`
 - key 보관 기본값: `24h`
+- 동일 key + 완료 상태(`SUCCEEDED`, `FAILED`, `CANCELED`)면 기존 최종 상태를 반환
+- `statusUrl`과 `statusOwner`는 재시도 응답에서도 동일해야 한다

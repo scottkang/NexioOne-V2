@@ -8,6 +8,12 @@
 - 현재 구현은 없으므로, 본 문서는 우선 개발 순서를 맞추기 위한 목표 계약으로 사용한다.
 - 상세 schema는 `internal-execution-schema.md`를 함께 기준으로 사용한다.
 
+## 1.1 Ownership 해석 규칙
+- 실행 제어용 상태의 정본(source of truth)은 `my-backend`다.
+- 사용자용 장기 이력, 검색, 목록, 운영 조회의 정본은 `logging-service`가 구축한 read model이다.
+- `my-console-backend`는 실행 요청 producer이자 외부 API facade이며, 실행 상태의 별도 정본 DB를 갖지 않는다.
+- 이번 프로그램에서는 "실행 제어 상태 조회"와 "실행 이력 조회"를 분리한다.
+
 ## 2. 모듈 간 통신 매트릭스
 | Source | Target | Protocol | 목적 |
 |---|---|---|---|
@@ -147,7 +153,8 @@ Response `202`:
   "requestId": "req-20260418-0001",
   "executionId": "exec-20260418-0002",
   "status": "ACCEPTED",
-  "statusUrl": "/api/projects/1/runtime/executions/exec-20260418-0002"
+  "statusUrl": "/api/projects/1/runtime/executions/exec-20260418-0002",
+  "statusOwner": "my-backend"
 }
 ```
 
@@ -161,9 +168,16 @@ Response `202`:
 ### 3.7 Async Status Ownership
 - 비동기 실행의 표준 상태 조회 엔드포인트는 `my-backend`의 `GET /api/projects/{projectId}/runtime/executions/{executionId}`다.
 - `my-backend`는 실행 중 상태(`ACCEPTED`, `RUNNING`)의 정본(source of truth)이다.
-- 실행 완료 후 `logging-service`는 이벤트 기반 read model을 구축하며, `my-console-backend`는 사용자용 실행 이력/검색 API를 해당 read model에서 제공할 수 있다.
-- 이번 프로그램에서는 "실행 제어용 상태 조회"와 "실행 이력 조회"를 분리한다.
+- 실행 완료 후에도 제어 목적의 단건 상태 확인은 같은 엔드포인트에서 가능하다.
+- `logging-service`는 이벤트 기반 read model을 구축하며, `my-console-backend`는 사용자용 실행 이력/검색 API를 해당 read model에서 제공할 수 있다.
+- 장기 이력/검색 API는 이번 프로그램 외부 API baseline에 포함하지 않으며, 후속 범위에서 별도 API로 고정한다.
 - `statusUrl`의 `{projectId}`는 요청 payload의 `projectId`와 동일해야 한다.
+
+### 3.8 상태 조회 규칙
+- 외부 사용자는 `my-console-backend`의 `GET /api/projects/{projectId}/runtime/executions/{executionId}` 경로를 호출한다.
+- 위 외부 API는 `my-backend` 정본 상태를 그대로 중계하거나 동등 의미로 반환해야 한다.
+- `my-console-backend`는 실행 중 상태를 별도 DB 정본으로 저장하지 않는다.
+- `logging-service` read model 지연이 있더라도 실행 제어 상태 조회는 `my-backend` 기준을 우선한다.
 
 ## 4. Idempotency 규칙
 
@@ -181,7 +195,13 @@ Response `202`:
 
 ### 4.4 재시도 응답
 - 이전 요청이 `ACCEPTED` 또는 `RUNNING`이면 기존 `requestId`, `executionId`, `statusUrl`을 반환한다.
-- 이전 요청이 `SUCCEEDED` 또는 `FAILED`이면 기존 최종 상태를 반환한다.
+- 이전 요청이 `SUCCEEDED`, `FAILED`, `CANCELED`이면 기존 `executionId`와 최종 상태를 반환한다.
+- 같은 key 재시도 응답은 새 실행을 만들지 않는다.
+
+### 4.4.1 Idempotency 정합성 규칙
+- idempotency 비교 단위는 동일 `projectId` 내 동일 `Idempotency-Key`다.
+- payload 동일성 비교 대상은 `deploymentId`, `flowDefinition`, `connectionProfiles`, `flowBindings`, `inputContext`, `requestedBy`, `options.mode`, `options.trace`, `options.timeoutMs`다.
+- 동일 key에 대해 `options.async=false` 요청은 허용하지 않는다.
 
 ### 4.5 에러 응답 예시
 ```json
@@ -205,6 +225,11 @@ Response `202`:
   - `execution.step.completed`
   - `execution.completed`
   - `execution.failed`
+
+### 5.1.1 Read Model Ownership
+- `logging-service`는 이벤트 소비 후 execution read model의 정본을 구축한다.
+- 이 read model은 사용자용 실행 이력/검색/운영 조회에 사용한다.
+- 실행 제어 목적의 단건 상태 조회 정본은 여전히 `my-backend`다.
 
 ### 5.2 Common Event Fields
 ```json
