@@ -1,30 +1,29 @@
 # Next Session Handoff
 
 ## 현재 상태
-- `docs/spec` 기준으로 제품 개발 착수 가능 여부를 재검토했고, 즉시 구현 전에 닫아야 할 보완 backlog를 실행 단위로 재정리했다.
-- 작업 브랜치는 `type/3-dev-readiness-backlog`다.
-- GitHub 이슈는 `#3 [feat] 개발 착수 보완 backlog 문서화`다.
+- 로컬에만 있던 문서 자산을 원격 저장소에 반영하는 작업을 진행 중이다.
+- 이번 세션 기준 작업 브랜치는 `type/5-upload-local-docs`다.
+- GitHub 이슈는 `#5 [chore] 로컬 문서 일괄 반영`이다.
 
 ## 이번 세션에서 완료된 작업 / PR
 - 작업:
-  - `docs/spec/foundation/development-execution-backlog.md` 추가
-  - `docs/spec/README.md` 인덱스 반영
-  - 다음 구현 세션용 handoff 최신화
+  - `docs/` 하위 스펙/가이드/워크로그 문서를 원격 반영 대상으로 정리
+  - 루트 문서 `AGENTS.md`, `Gemini.md`를 함께 반영 범위에 포함
+  - 이번 handoff 문서를 현재 세션 기준으로 갱신
 - PR:
   - 아직 생성 전
 
 ## 다음 세션 시작 순서
-1. `development-execution-backlog.md`의 `P0-1` 범위 정렬 작업부터 시작한다.
-2. 이어서 `P0-2` 외부 API 단일 계약화 범위를 OpenAPI 또는 DTO 표 기준으로 확정한다.
-3. 계약/fixture 방향이 정해지면 PR을 생성하고 템플릿에 맞춰 본문을 채운다.
+1. PR `#5`가 머지되었는지 확인하고 원격 기준 문서 목록을 점검한다.
+2. 문서 반영 이후 남아 있는 `.github/` 및 코드 디렉터리 반영 여부를 별도 이슈로 판단한다.
+3. 구현 재개 시 `development-execution-backlog.md`의 `P0-1`부터 착수한다.
 
 ## 우선순위 작업
-- `P0-1` 범위 단일화
-- `P0-2` 외부 API 단일 계약화
-- `P0-3` 내부 실행 계약과 상태 조회 ownership 확정
-- fixture baseline 디렉터리 및 contract sample 초안 준비
+- 로컬 문서 반영 PR 생성 및 병합
+- 원격 기준 문서 목록 점검
+- 이후 `P0-1`, `P0-2`, `P0-3` 순으로 실제 스펙 보완 작업 재개
 
 ## 리스크 / 주의 사항
-- 저장소가 아직 초기 상태라 대부분 파일이 untracked 상태다. 이번 변경과 무관한 파일을 건드리지 않도록 주의가 필요하다.
-- `fixtures/` 디렉터리가 아직 없어 contract test 기준 산출물이 문서에만 존재한다.
-- 프론트 가이드에는 reserved 권한인 `DEPLOYMENT_EXECUTE` 예시가 남아 있어 다음 세션에서 정합성 보정이 필요하다.
+- 저장소에는 여전히 `.github/`, `my-backend/`, `my-console-backend/` 등 미반영 로컬 자산이 남아 있다.
+- 이번 PR은 문서만 대상으로 하므로 코드/CI 자산 누락을 해결하지 않는다.
+- 프론트 가이드의 reserved 권한 예시와 fixture 부재 문제는 다음 문서 보완 세션에서 이어서 정리해야 한다.
