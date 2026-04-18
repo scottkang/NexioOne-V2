@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:04:30Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2001",
+  "message": "connection properties validation failed",
+  "path": "/api/projects/1/connections",
+  "details": [
+    {
+      "field": "properties.destinationName",
+      "reason": "must not be blank for MQ"
+    }
+  ],
+  "traceId": "trace-20260418-0105"
+}

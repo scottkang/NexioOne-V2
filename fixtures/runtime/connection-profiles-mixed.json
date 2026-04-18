@@ -1,0 +1,53 @@
+[
+  {
+    "id": "source-db",
+    "type": "JDBC",
+    "properties": {
+      "url": "jdbc:postgresql://db:5432/app",
+      "username": "app",
+      "validationQuery": "SELECT 1"
+    },
+    "secretsRef": {
+      "passwordKey": "secret/project-1/source-db/password"
+    }
+  },
+  {
+    "id": "crm-api",
+    "type": "REST",
+    "properties": {
+      "baseUrl": "https://api.example.local",
+      "authenticationType": "BEARER",
+      "readTimeoutMs": 5000
+    },
+    "secretsRef": {
+      "tokenKey": "secret/project-1/crm-api/token"
+    }
+  },
+  {
+    "id": "order-events",
+    "type": "MQ",
+    "properties": {
+      "brokerUrl": "amqp://mq.internal:5672",
+      "destinationType": "QUEUE",
+      "destinationName": "order.created"
+    },
+    "secretsRef": {
+      "usernameKey": "secret/project-1/order-events/username",
+      "passwordKey": "secret/project-1/order-events/password"
+    }
+  },
+  {
+    "id": "partner-sftp",
+    "type": "SFTP",
+    "properties": {
+      "host": "sftp.partner.local",
+      "port": 22,
+      "username": "partner-user",
+      "knownHostsPolicy": "STRICT"
+    },
+    "secretsRef": {
+      "privateKeyKey": "secret/project-1/partner-sftp/privateKey",
+      "passphraseKey": "secret/project-1/partner-sftp/passphrase"
+    }
+  }
+]

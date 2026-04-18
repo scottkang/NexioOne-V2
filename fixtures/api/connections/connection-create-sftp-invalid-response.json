@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:04:45Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2001",
+  "message": "connection properties validation failed",
+  "path": "/api/projects/1/connections",
+  "details": [
+    {
+      "field": "secrets.privateKey",
+      "reason": "password or privateKey is required for SFTP"
+    }
+  ],
+  "traceId": "trace-20260418-0106"
+}

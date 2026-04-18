@@ -28,6 +28,26 @@
 4. AES-256-GCM 알고리즘으로 암호화.
 5. `TB_CONNECTION` 테이블의 `config` 필드에 JSON 포맷으로 저장 (IV 포함).
 
+### 4.1 Connection Secret 저장 범위
+- Control Plane 저장 시 암호화 대상은 `Connection.secrets` 하위 값이다.
+- `properties`는 비민감 설정만 저장하며 암호화 대상이 아니다.
+- 유형별 허용 secret key:
+  - JDBC: `password`
+  - REST: `username`, `password`, `token`, `apiKey`
+  - MQ: `username`, `password`
+  - SFTP: `password`, `privateKey`, `passphrase`
+
+### 4.2 Runtime 전달 규칙
+- runtime 요청에는 secret 원문을 전달하지 않는다.
+- `my-console-backend`는 deployment snapshot 또는 execute request 생성 시 `secretsRef`만 포함한다.
+- `secretsRef` key 이름은 `connection-profile-contract.md`의 타입별 허용 key를 따른다.
+- secret rotation 후 새 reference는 다음 deployment snapshot 생성 시점부터 반영한다.
+
 ## 5. 민감 정보 마스킹 (Data Masking)
 - **로그 출력**: 로그 서비스 전송 전 `password`, `secret`, `token`, `key` 등의 키워드가 포함된 필드는 자동으로 `***` 처리한다.
 - **UI 노출**: 비밀번호 필드는 조회 API 호출 시 값을 포함하지 않거나(Null), 마스킹된 상태로 반환한다.
+
+### 5.1 Connection 조회 마스킹 규칙
+- Connection 상세/목록 응답은 `secrets`, `secretsRef` 원문을 반환하지 않는다.
+- 프론트엔드는 secret 존재 여부를 별도 boolean 또는 placeholder로만 표시할 수 있다.
+- runtime/logging/event payload에는 `secretsRef` key 이름 외의 secret 값이 노출되면 안 된다.

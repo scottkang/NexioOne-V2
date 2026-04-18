@@ -38,6 +38,18 @@
       "projectId": 1,
       "name": "crm-api",
       "type": "REST"
+    },
+    {
+      "id": 14,
+      "projectId": 1,
+      "name": "order-events",
+      "type": "MQ"
+    },
+    {
+      "id": 15,
+      "projectId": 1,
+      "name": "partner-sftp",
+      "type": "SFTP"
     }
   ],
   "deployments": [
