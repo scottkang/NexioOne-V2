@@ -1,0 +1,461 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  my-console:
+    name: my-console test
+    runs-on:
+      - self-hosted
+      - macOS
+    env:
+      VITEST_TEST_TIMEOUT_MS: "15000"
+    defaults:
+      run:
+        working-directory: my-console
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        run: npm ci
+      - name: Test coverage
+        run: npm run test:coverage
+      - name: Build coverage summary
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          coverage_file = Path("coverage/coverage-summary.json")
+          summary_path = Path("coverage-summary.md")
+          if not coverage_file.exists():
+              summary_path.write_text("### my-console coverage\n\nCoverage summary was not generated.\n")
+              raise SystemExit(0)
+
+          total = json.loads(coverage_file.read_text())["total"]
+          lines = [
+              "### my-console coverage",
+              "",
+              "| Metric | Coverage |",
+              "| --- | ---: |",
+          ]
+          for key, label in [
+              ("lines", "Lines"),
+              ("statements", "Statements"),
+              ("branches", "Branches"),
+              ("functions", "Functions"),
+          ]:
+              lines.append(f"| {label} | {total[key]['pct']:.2f}% |")
+          summary_path.write_text("\n".join(lines) + "\n")
+          PY
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-console-coverage
+          path: |
+            my-console/coverage
+            my-console/coverage-summary.md
+
+  my-console-backend:
+    name: my-console-backend test
+    runs-on:
+      - self-hosted
+      - macOS
+    defaults:
+      run:
+        working-directory: my-console-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Test coverage
+        run: mvn -q verify
+      - name: Build coverage summary
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          coverage_file = Path("target/site/jacoco/jacoco.xml")
+          summary_path = Path("coverage-summary.md")
+          if not coverage_file.exists():
+              summary_path.write_text("### my-console-backend coverage\n\nCoverage summary was not generated.\n")
+              raise SystemExit(0)
+
+          root = ET.parse(coverage_file).getroot()
+          counters = {counter.attrib["type"]: counter.attrib for counter in root.findall("counter")}
+          lines = [
+              "### my-console-backend coverage",
+              "",
+              "| Metric | Coverage |",
+              "| --- | ---: |",
+          ]
+          for key, label in [
+              ("LINE", "Lines"),
+              ("BRANCH", "Branches"),
+              ("METHOD", "Methods"),
+              ("CLASS", "Classes"),
+          ]:
+              counter = counters[key]
+              missed = int(counter["missed"])
+              covered = int(counter["covered"])
+              total = missed + covered
+              pct = 100.0 if total == 0 else (covered * 100.0 / total)
+              lines.append(f"| {label} | {pct:.2f}% |")
+          summary_path.write_text("\n".join(lines) + "\n")
+          PY
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-console-backend-coverage
+          path: |
+            my-console-backend/target/site/jacoco
+            my-console-backend/coverage-summary.md
+
+  my-backend:
+    name: my-backend test
+    runs-on:
+      - self-hosted
+      - macOS
+    defaults:
+      run:
+        working-directory: my-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Core test suite
+        run: >
+          mvn -q
+          -Dtest='!ExecutionControllerTest,!ExecutionDispatchMetricsIntegrationTest,!ExecutionHttpFlowIntegrationTest,!ExecutionKafkaRealIntegrationTest,!ExecutionLoggingOutboxIntegrationTest,!ExecutionObjectStorageFlowIntegrationTest,!ExecutionSchedulingAndDeadLetterIntegrationTest,!FlowExecutionEngineIntegrationTest'
+          test
+      - name: Upload core coverage data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-backend-core-coverage-data
+          path: my-backend/target/jacoco.exec
+
+  my-backend-integration:
+    name: my-backend integration test
+    runs-on:
+      - self-hosted
+      - macOS
+    defaults:
+      run:
+        working-directory: my-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Integration test suite
+        run: >
+          mvn -q
+          -Dtest='ExecutionControllerTest,ExecutionDispatchMetricsIntegrationTest,ExecutionHttpFlowIntegrationTest,ExecutionKafkaRealIntegrationTest,ExecutionLoggingOutboxIntegrationTest,ExecutionObjectStorageFlowIntegrationTest,ExecutionSchedulingAndDeadLetterIntegrationTest,FlowExecutionEngineIntegrationTest'
+          test
+      - name: Upload integration coverage data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-backend-integration-coverage-data
+          path: my-backend/target/jacoco.exec
+
+  my-backend-coverage:
+    name: my-backend coverage
+    needs:
+      - my-backend
+      - my-backend-integration
+    runs-on:
+      - self-hosted
+      - macOS
+    defaults:
+      run:
+        working-directory: my-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Download core coverage data
+        uses: actions/download-artifact@v4
+        with:
+          name: my-backend-core-coverage-data
+          path: coverage-input/core
+      - name: Download integration coverage data
+        uses: actions/download-artifact@v4
+        with:
+          name: my-backend-integration-coverage-data
+          path: coverage-input/integration
+      - name: Prepare JaCoCo CLI
+        run: >
+          mvn -q
+          org.apache.maven.plugins:maven-dependency-plugin:3.8.1:get
+          -Dartifact=org.jacoco:org.jacoco.cli:0.8.13:jar:nodeps
+      - name: Compile classes for coverage report
+        run: mvn -q -DskipTests compile
+      - name: Merge coverage and enforce thresholds
+        run: |
+          JACOCO_CLI="$HOME/.m2/repository/org/jacoco/org.jacoco.cli/0.8.13/org.jacoco.cli-0.8.13-nodeps.jar"
+          CORE_EXEC=$(find "$GITHUB_WORKSPACE/coverage-input/core" -name jacoco.exec -print -quit)
+          INTEGRATION_EXEC=$(find "$GITHUB_WORKSPACE/coverage-input/integration" -name jacoco.exec -print -quit)
+
+          if [ -z "$CORE_EXEC" ] || [ -z "$INTEGRATION_EXEC" ]; then
+            echo "Unable to locate JaCoCo exec files under downloaded artifacts." >&2
+            echo "Core artifact contents:" >&2
+            ls -R "$GITHUB_WORKSPACE/coverage-input/core" >&2 || true
+            echo "Integration artifact contents:" >&2
+            ls -R "$GITHUB_WORKSPACE/coverage-input/integration" >&2 || true
+            exit 1
+          fi
+
+          java -jar "$JACOCO_CLI" merge \
+            "$CORE_EXEC" \
+            "$INTEGRATION_EXEC" \
+            --destfile target/jacoco-merged.exec
+
+          mkdir -p target/site/jacoco
+
+          java -jar "$JACOCO_CLI" report target/jacoco-merged.exec \
+            --classfiles target/classes \
+            --sourcefiles src/main/java \
+            --xml target/site/jacoco/jacoco.xml \
+            --html target/site/jacoco
+
+          python3 - <<'PY'
+          import sys
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          coverage_file = Path("target/site/jacoco/jacoco.xml")
+          summary_path = Path("coverage-summary.md")
+          root = ET.parse(coverage_file).getroot()
+          counters = {counter.attrib["type"]: counter.attrib for counter in root.findall("counter")}
+          thresholds = {
+              "LINE": 72.0,
+              "BRANCH": 48.0,
+              "METHOD": 86.0,
+          }
+
+          lines = [
+              "### my-backend coverage",
+              "",
+              "| Metric | Coverage |",
+              "| --- | ---: |",
+          ]
+          failures = []
+
+          for key, label in [
+              ("LINE", "Lines"),
+              ("BRANCH", "Branches"),
+              ("METHOD", "Methods"),
+              ("CLASS", "Classes"),
+          ]:
+              counter = counters[key]
+              missed = int(counter["missed"])
+              covered = int(counter["covered"])
+              total = missed + covered
+              pct = 100.0 if total == 0 else (covered * 100.0 / total)
+              lines.append(f"| {label} | {pct:.2f}% |")
+              threshold = thresholds.get(key)
+              if threshold is not None and pct < threshold:
+                  failures.append(f"{label} coverage {pct:.2f}% is below {threshold:.2f}%")
+
+          summary_path.write_text("\n".join(lines) + "\n")
+
+          if failures:
+              print("\n".join(failures), file=sys.stderr)
+              sys.exit(1)
+          PY
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-backend-coverage
+          path: |
+            my-backend/target/site/jacoco
+            my-backend/coverage-summary.md
+
+  logging-service:
+    name: logging-service test
+    runs-on:
+      - self-hosted
+      - macOS
+    defaults:
+      run:
+        working-directory: logging-service
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - name: Test coverage
+        run: mvn -q verify
+      - name: Build coverage summary
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          coverage_file = Path("target/site/jacoco/jacoco.xml")
+          summary_path = Path("coverage-summary.md")
+          if not coverage_file.exists():
+              summary_path.write_text("### logging-service coverage\n\nCoverage summary was not generated.\n")
+              raise SystemExit(0)
+
+          root = ET.parse(coverage_file).getroot()
+          counters = {counter.attrib["type"]: counter.attrib for counter in root.findall("counter")}
+          lines = [
+              "### logging-service coverage",
+              "",
+              "| Metric | Coverage |",
+              "| --- | ---: |",
+          ]
+          for key, label in [
+              ("LINE", "Lines"),
+              ("BRANCH", "Branches"),
+              ("METHOD", "Methods"),
+              ("CLASS", "Classes"),
+          ]:
+              counter = counters[key]
+              missed = int(counter["missed"])
+              covered = int(counter["covered"])
+              total = missed + covered
+              pct = 100.0 if total == 0 else (covered * 100.0 / total)
+              lines.append(f"| {label} | {pct:.2f}% |")
+          summary_path.write_text("\n".join(lines) + "\n")
+          PY
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logging-service-coverage
+          path: |
+            logging-service/target/site/jacoco
+            logging-service/coverage-summary.md
+
+  coverage-report:
+    name: coverage report
+    if: always()
+    needs:
+      - my-console
+      - my-console-backend
+      - my-backend-coverage
+      - logging-service
+    runs-on:
+      - self-hosted
+      - macOS
+    steps:
+      - name: Download frontend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-console-coverage
+          path: coverage-artifacts/my-console
+      - name: Download console backend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-console-backend-coverage
+          path: coverage-artifacts/my-console-backend
+      - name: Download runtime backend coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-backend-coverage
+          path: coverage-artifacts/my-backend
+      - name: Download logging service coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: logging-service-coverage
+          path: coverage-artifacts/logging-service
+      - name: Publish coverage summary
+        run: |
+          {
+            echo "## Coverage Report"
+            echo
+            cat coverage-artifacts/my-console/coverage-summary.md
+            echo
+            cat coverage-artifacts/my-console-backend/coverage-summary.md
+            echo
+            cat coverage-artifacts/my-backend/coverage-summary.md
+            echo
+            cat coverage-artifacts/logging-service/coverage-summary.md
+            echo
+            echo "Artifacts:"
+            echo "- \`my-console-coverage\`"
+            echo "- \`my-console-backend-coverage\`"
+            echo "- \`my-backend-coverage\`"
+            echo "- \`logging-service-coverage\`"
+          } | tee coverage-report.md
+          cat coverage-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Comment coverage summary on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('coverage-report.md', 'utf8');
+            const marker = '<!-- nexioone-coverage-report -->';
+            const commentBody = `${marker}\n${body}`;
+            const issue_number = context.payload.pull_request.number;
+            const { owner, repo } = context.repo;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body: commentBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: commentBody,
+              });
+            }

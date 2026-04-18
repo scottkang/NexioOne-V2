@@ -1,0 +1,66 @@
+name: Bug
+description: 버그 신고 및 수정 요청
+title: "[fix] "
+labels:
+  - type:bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 버그 요약
+      description: 어떤 문제가 발생하는지 간단히 작성하세요.
+      placeholder: 재현 가능한 증상
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 동작
+      placeholder: 정상이라면 어떻게 동작해야 하는지
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 동작
+      placeholder: 실제로 어떻게 동작하는지
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 재현 절차
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: modules
+    attributes:
+      label: 영향 모듈
+      multiple: true
+      options:
+        - my-console
+        - my-console-backend
+        - my-backend
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 로그/스크린샷
+      description: 에러 로그, 스택트레이스, 캡처를 첨부하세요.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 완료 조건 (DoD)
+      placeholder: |
+        - [ ] 재현 케이스가 실패 -> 성공으로 전환
+        - [ ] 회귀 테스트 추가
+        - [ ] 관련 문서 업데이트
+    validations:
+      required: true
