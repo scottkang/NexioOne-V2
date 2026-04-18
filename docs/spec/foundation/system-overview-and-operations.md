@@ -47,7 +47,9 @@ flowchart LR
 - Control Plane은 설계, 저장, 배포, 권한을 담당한다.
 - Data Plane은 실행을 담당한다.
 - 실행 결과 영속화는 `logging-service`가 담당한다.
-- `my-console-backend`는 execution read 계층 역할만 수행한다.
+- `my-console-backend`는 execution read facade 역할만 수행한다.
+- 실행 제어용 단건 상태의 정본은 `my-backend`다.
+- 사용자용 실행 이력/검색의 정본은 `logging-service` read model이다.
 
 ## 3. 모듈별 책임 경계
 
@@ -61,6 +63,7 @@ flowchart LR
 - 프로젝트/Flow/DataDefinition/Connection CRUD
 - Deployment 생성/상태 변경/롤백
 - runtime 실행 요청 생성
+- `my-backend` 상태 API 중계
 - logging read model 조회 후 UI용 응답 가공
 
 ### 3.3 my-backend
@@ -114,7 +117,8 @@ flowchart LR
 3. `my-backend`가 지원 노드 기준으로 stub 실행을 수행한다.
 4. sync면 즉시 결과를 반환한다.
 5. async면 `ACCEPTED`와 `executionId`를 반환한다.
-6. 실행 상태는 `my-backend` 상태 API와 `logging-service` read model을 통해 조회된다.
+6. 실행 제어 상태는 `my-backend` 상태 API를 기준으로 조회된다.
+7. 장기 이력/검색은 `logging-service` read model을 통해 조회된다.
 
 ### 4.4 실행 로그 흐름
 1. `my-backend`가 execution lifecycle event를 outbox에 저장한다.
@@ -122,6 +126,12 @@ flowchart LR
 3. `logging-service`가 event를 consume한다.
 4. `execution_event`, `execution_record`, `execution_step`에 upsert한다.
 5. `my-console-backend`가 read model을 조회해 UI에 제공한다.
+
+### 4.5 상태 조회 Ownership
+- `GET /api/projects/{projectId}/runtime/executions/{executionId}`의 정본은 `my-backend`다.
+- 실행 중 상태(`ACCEPTED`, `RUNNING`)는 `logging-service` 적재 지연과 무관하게 `my-backend` 기준을 우선한다.
+- 완료 후 장기 이력/검색/목록 조회는 `logging-service` read model을 사용한다.
+- 이번 프로그램에서는 제어 상태 조회와 이력 조회를 별도 API 책임으로 분리한다.
 
 ## 5. 트랜잭션 처리 수준
 
