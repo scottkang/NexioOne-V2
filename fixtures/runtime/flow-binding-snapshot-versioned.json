@@ -1,24 +1,20 @@
 {
+  "flowId": 10,
   "bindingVersion": 4,
   "bindings": [
     {
-      "id": 101,
       "role": "INPUT",
       "bindingKey": "requestBody",
-      "displayOrder": 1,
       "required": true,
       "dataDefinitionId": 7,
-      "dataDefinitionName": "CustomerRequest"
+      "dataDefinitionVersion": 3
     },
     {
-      "id": 102,
       "role": "OUTPUT",
       "bindingKey": "responseBody",
-      "displayOrder": 2,
       "required": true,
       "dataDefinitionId": 8,
-      "dataDefinitionName": "CustomerResponse"
+      "dataDefinitionVersion": 2
     }
-  ],
-  "updatedAt": "2026-04-18T10:00:00Z"
+  ]
 }

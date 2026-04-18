@@ -1,14 +1,17 @@
-[
-  {
-    "role": "INPUT",
-    "bindingKey": "requestBody",
-    "required": true,
-    "dataDefinitionId": 7
-  },
-  {
-    "role": "OUTPUT",
-    "bindingKey": "responseBody",
-    "required": true,
-    "dataDefinitionId": 8
-  }
-]
+{
+  "bindingVersion": 3,
+  "bindings": [
+    {
+      "role": "INPUT",
+      "bindingKey": "requestBody",
+      "required": true,
+      "dataDefinitionId": 7
+    },
+    {
+      "role": "OUTPUT",
+      "bindingKey": "responseBody",
+      "required": true,
+      "dataDefinitionId": 8
+    }
+  ]
+}

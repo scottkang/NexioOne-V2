@@ -594,30 +594,35 @@ Response `200`:
 
 Request:
 ```json
-[
-  {
-    "role": "INPUT",
-    "bindingKey": "requestBody",
-    "required": true,
-    "dataDefinitionId": 7
-  },
-  {
-    "role": "OUTPUT",
-    "bindingKey": "responseBody",
-    "required": true,
-    "dataDefinitionId": 8
-  }
-]
+{
+  "bindingVersion": 3,
+  "bindings": [
+    {
+      "role": "INPUT",
+      "bindingKey": "requestBody",
+      "required": true,
+      "dataDefinitionId": 7
+    },
+    {
+      "role": "OUTPUT",
+      "bindingKey": "responseBody",
+      "required": true,
+      "dataDefinitionId": 8
+    }
+  ]
+}
 ```
 
 Response `200`:
-- 저장 후 전체 binding 목록을 반환한다.
+- 저장 후 전체 binding 목록과 새 `bindingVersion`을 반환한다.
 
 Validation:
 - `role`: `INPUT`, `OUTPUT`, `INTERNAL`
 - 같은 Flow 내 `role + bindingKey` 조합은 유일
 - `INPUT`, `OUTPUT`는 각 0..1개, `INTERNAL`은 복수 허용
 - `dataDefinitionId`는 같은 프로젝트의 정의만 참조 가능
+- 요청의 `bindingVersion`이 최신 버전과 다르면 `409` + `SYS-1409`
+- `DataDefinition.type`는 deprecated/reference 용도로만 남으며 저장 판정에는 사용하지 않는다
 
 ## 9. 권한 매핑 요약
 | API Group | Read Permission | Write Permission |
