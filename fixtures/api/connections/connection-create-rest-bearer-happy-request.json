@@ -1,0 +1,11 @@
+{
+  "name": "crm-api",
+  "type": "REST",
+  "properties": {
+    "baseUrl": "https://api.example.local",
+    "authType": "BEARER"
+  },
+  "secrets": {
+    "token": "masked-or-write-only"
+  }
+}

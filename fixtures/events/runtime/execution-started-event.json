@@ -1,0 +1,17 @@
+{
+  "eventId": "evt-20260418-0001",
+  "eventType": "execution.started",
+  "schemaVersion": 1,
+  "occurredAt": "2026-04-18T09:45:00Z",
+  "source": "my-backend",
+  "payload": {
+    "executionId": "exec-20260418-0001",
+    "projectId": 1,
+    "deploymentId": 101,
+    "flowId": 10,
+    "flowKey": "customer-sync",
+    "mode": "EXECUTE_STUB",
+    "requestedBy": "owner@nexioone.local",
+    "requestedAt": "2026-04-18T09:45:00Z"
+  }
+}

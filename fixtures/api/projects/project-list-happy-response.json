@@ -1,0 +1,15 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Customer Sync",
+      "description": "customer integration project",
+      "createdAt": "2026-04-18T09:00:00Z",
+      "updatedAt": "2026-04-18T09:10:00Z"
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalElements": 1,
+  "totalPages": 1
+}

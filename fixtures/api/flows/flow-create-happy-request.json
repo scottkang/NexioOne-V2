@@ -1,0 +1,8 @@
+{
+  "name": "customer-sync",
+  "description": "sync customer master",
+  "flowDefinition": {
+    "nodes": [],
+    "edges": []
+  }
+}

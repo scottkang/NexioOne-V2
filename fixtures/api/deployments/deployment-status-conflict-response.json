@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:05:00Z",
+  "status": 409,
+  "error": "Conflict",
+  "code": "ADM-2002",
+  "message": "deployment status transition is not allowed",
+  "path": "/api/projects/1/deployments/101/status",
+  "details": [
+    {
+      "field": "status",
+      "reason": "transition from DEPLOYED to CREATED is not allowed"
+    }
+  ],
+  "traceId": "trace-20260418-0106"
+}

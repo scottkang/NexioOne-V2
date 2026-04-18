@@ -31,19 +31,26 @@
 ## 5. 우선 추적 대상
 | Requirement | Contract | Module | Test | Evidence |
 |---|---|---|---|---|
-| Auth Login/Refresh | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Auth Test | fixture JSON |
-| Project CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Service Test | fixture JSON |
-| Flow CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Validation Test | invalid flow fixture |
-| DataDefinition CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Repository Test | schema fixture |
-| Connection CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Masking Test | masked response fixture |
-| Flow Data Binding | `docs/spec/api/control-plane-api-baseline.md`, `docs/spec/data/flow-owned-data-definition-roles.md` | `my-console-backend` | API/Relation Validation Test | binding fixture |
-| Connection Profile Contract | `docs/spec/data/connection-profile-contract.md` | `my-console-backend`, `my-backend` | API/Contract Test | jdbc/rest fixture |
+| Auth Login/Refresh | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Auth Test | `fixtures/api/auth/auth-login-happy-response.json`, `fixtures/api/auth/auth-login-invalid-credential-response.json`, `fixtures/api/auth/auth-refresh-happy-response.json` |
+| Project CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Service Test | `fixtures/api/projects/project-list-happy-response.json`, `fixtures/api/projects/project-create-happy-response.json`, `fixtures/api/projects/project-detail-not-found-response.json` |
+| Flow CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Validation Test | `fixtures/api/flows/flow-create-happy-response.json`, `fixtures/api/flows/flow-update-invalid-definition-response.json` |
+| DataDefinition CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Repository Test | `fixtures/api/data-definitions/data-definition-create-happy-response.json`, `fixtures/api/data-definitions/data-definition-create-validation-error-response.json` |
+| Connection CRUD | `docs/spec/api/control-plane-api-baseline.md` | `my-console-backend` | API/Masking Test | `fixtures/api/connections/connection-create-jdbc-happy-response.json`, `fixtures/api/connections/connection-create-rest-bearer-happy-response.json`, `fixtures/api/connections/connection-detail-masked-response.json`, `fixtures/api/connections/connection-create-invalid-response.json` |
+| Flow Data Binding | `docs/spec/api/control-plane-api-baseline.md`, `docs/spec/data/flow-owned-data-definition-roles.md` | `my-console-backend` | API/Relation Validation Test | `fixtures/api/flows/flow-binding-save-happy-request.json`, `fixtures/api/flows/flow-binding-save-happy-response.json` |
+| Connection Profile Contract | `docs/spec/data/connection-profile-contract.md` | `my-console-backend`, `my-backend` | API/Contract Test | `fixtures/api/connections/connection-create-jdbc-happy-request.json`, `fixtures/api/connections/connection-create-rest-bearer-happy-request.json`, `fixtures/runtime/execute-request-with-flow-bindings.json` |
 | Internal ExecuteRequest Contract | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/api/internal-execution-schema.md` | `my-console-backend`, `my-backend` | Contract Test | `fixtures/runtime/execute-request-with-flow-bindings.json` |
-| Deployment 생성/상태변경/롤백 | `docs/spec/api/api-spec.md` | `my-console-backend` | API/Service/Contract Test | deployment fixture planned in next baseline |
+| Deployment 생성/상태변경/롤백 | `docs/spec/api/api-spec.md` | `my-console-backend` | API/Service/Contract Test | `fixtures/api/deployments/deployment-create-happy-request.json`, `fixtures/api/deployments/deployment-create-happy-response.json`, `fixtures/api/deployments/deployment-status-conflict-response.json`, `fixtures/api/deployments/deployment-rollback-happy-response.json` |
 | Flow Dry-Run | `docs/spec/api/api-spec.md` | `my-console-backend`, `my-backend` | API/Integration Test | `fixtures/api/runtime/dry-run-happy-response.json`, `fixtures/api/runtime/dry-run-unsupported-node-response.json` |
 | Flow Execute-Stub | `docs/spec/api/api-spec.md`, `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-node-support-matrix.md` | `my-console-backend`, `my-backend` | API/Integration/Contract Test | `fixtures/api/runtime/execute-stub-sync-happy-response.json`, `fixtures/api/runtime/execute-stub-async-accepted-response.json`, `fixtures/api/runtime/execute-stub-idempotency-conflict-response.json`, `fixtures/runtime/nodes/mapping-node-stub-success.json` |
 | Runtime Status 조회 | `docs/spec/api/api-spec.md`, `docs/spec/runtime/runtime-operations-spec.md` | `my-console-backend`, `my-backend` | API Test | `fixtures/api/runtime/execution-status-running-response.json` |
-| Execution Event 전달 | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-event-schema.md` | `my-backend`, `logging-service` | Producer Contract/Consumer Test | `event-started.json`, `event-step-completed.json`, `event-completed.json`, `event-failed.json` |
+| Execution Event 전달 | `docs/spec/api/internal-api-contract-design.md`, `docs/spec/runtime/runtime-event-schema.md` | `my-backend`, `logging-service` | Producer Contract/Consumer Test | `fixtures/events/runtime/execution-started-event.json`, `fixtures/events/runtime/execution-step-completed-event.json`, `fixtures/events/runtime/execution-completed-event.json`, `fixtures/events/runtime/execution-failed-event.json` |
+
+## 5.1 Contract Ownership Baseline
+| Contract Boundary | Producer Responsibility | Consumer Verification | Shared Fixture Source |
+|---|---|---|---|
+| `my-console-backend -> my-backend` | `my-console-backend` | `my-backend` | `fixtures/api/runtime/`, `fixtures/runtime/` |
+| `my-backend -> logging-service` | `my-backend` | `logging-service` | `fixtures/events/runtime/` |
+| Control Plane External API | `my-console-backend` | N/A | `fixtures/api/auth/`, `fixtures/api/projects/`, `fixtures/api/flows/`, `fixtures/api/data-definitions/`, `fixtures/api/connections/`, `fixtures/api/deployments/` |
 
 ## 6. 참조
 - `docs/spec/foundation/product-spec.md`

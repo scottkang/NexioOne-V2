@@ -56,6 +56,20 @@
 - `my-backend <-> logging-service`: producer responsibility `my-backend`, consumer verification `logging-service`
 - 공통 fixture source는 `test-fixture-baseline.md` naming 규칙을 따른다.
 
+## 5.2 실행 단위별 테스트 책임
+| Feature Group | Primary Module | Test Types | Contract Ownership | Evidence Source |
+| :--- | :--- | :--- | :--- | :--- |
+| Auth / Project / Flow / DataDefinition / Connection / Binding | `my-console-backend` | API, Slice, Service | 단일 모듈 책임 | `fixtures/api/auth/`, `fixtures/api/projects/`, `fixtures/api/flows/`, `fixtures/api/data-definitions/`, `fixtures/api/connections/` |
+| Deployment API | `my-console-backend` | API, Service, Contract | 외부 API producer `my-console-backend` | `fixtures/api/deployments/` |
+| Dry-Run / Execute-Stub / Execution Status | `my-console-backend`, `my-backend` | API, Integration, Contract | producer `my-console-backend`, consumer verification `my-backend` | `fixtures/api/runtime/`, `fixtures/runtime/` |
+| Runtime Event Publish | `my-backend` | Producer Contract | producer `my-backend` | `fixtures/events/runtime/` |
+| Logging Consume / Persist | `logging-service` | Consumer Contract, Persistence | consumer verification `logging-service` | `fixtures/events/runtime/` |
+
+### 5.3 Fixture Seed Rule
+- 공통 seed 데이터셋은 `fixtures/seeds/control-plane-minimal-seed.json`을 기준으로 한다.
+- feature fixture는 seed에 정의된 `projectId`, `flowId`, `dataDefinitionId`, `connectionId`, `deploymentId`를 재사용한다.
+- contract/integration 테스트는 feature fixture와 event fixture가 같은 식별자 세트를 공유해야 한다.
+
 ## 6. 테스트 자동화 및 파이프라인 (CI/CD 연동)
 
 - **PR Guard**: 모든 Pull Request는 최소 80% 이상의 코드 커버리지를 달성해야 하며, 모든 단위/통합 테스트를 통과해야 한다.

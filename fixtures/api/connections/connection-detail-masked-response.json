@@ -1,0 +1,13 @@
+{
+  "id": 12,
+  "projectId": 1,
+  "name": "source-db",
+  "type": "JDBC",
+  "properties": {
+    "url": "jdbc:postgresql://db:5432/app",
+    "username": "app"
+  },
+  "status": "ACTIVE",
+  "createdAt": "2026-04-18T09:00:00Z",
+  "updatedAt": "2026-04-18T09:00:00Z"
+}
