@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:02:00Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2102",
+  "message": "flowDefinition contains unsupported node or invalid graph",
+  "path": "/api/projects/1/flows/10",
+  "details": [
+    {
+      "field": "flowDefinition.nodes[1].type",
+      "reason": "WAIT is not supported in MVP runtime"
+    }
+  ],
+  "traceId": "trace-20260418-0103"
+}

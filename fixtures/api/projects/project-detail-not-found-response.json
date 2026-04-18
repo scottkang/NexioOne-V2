@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-18T09:01:00Z",
+  "status": 404,
+  "error": "Not Found",
+  "code": "SYS-1001",
+  "message": "project not found",
+  "path": "/api/projects/999",
+  "details": [],
+  "traceId": "trace-20260418-0102"
+}

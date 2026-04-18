@@ -1,0 +1,20 @@
+[
+  {
+    "id": 101,
+    "role": "INPUT",
+    "bindingKey": "requestBody",
+    "displayOrder": 1,
+    "required": true,
+    "dataDefinitionId": 7,
+    "dataDefinitionName": "CustomerRequest"
+  },
+  {
+    "id": 102,
+    "role": "OUTPUT",
+    "bindingKey": "responseBody",
+    "displayOrder": 2,
+    "required": true,
+    "dataDefinitionId": 8,
+    "dataDefinitionName": "CustomerResponse"
+  }
+]

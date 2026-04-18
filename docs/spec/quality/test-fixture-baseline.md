@@ -61,19 +61,44 @@ fixtures/
 - `auth-login-invalid-credential-response`
 - `auth-refresh-happy-request/response`
 
+현재 baseline 경로:
+- `fixtures/api/auth/auth-login-happy-request.json`
+- `fixtures/api/auth/auth-login-happy-response.json`
+- `fixtures/api/auth/auth-login-invalid-credential-response.json`
+- `fixtures/api/auth/auth-refresh-happy-request.json`
+- `fixtures/api/auth/auth-refresh-happy-response.json`
+
 ### 5.2 Project
 - `project-list-happy-response`
 - `project-create-happy-request/response`
 - `project-detail-not-found-response`
+
+현재 baseline 경로:
+- `fixtures/api/projects/project-list-happy-response.json`
+- `fixtures/api/projects/project-create-happy-request.json`
+- `fixtures/api/projects/project-create-happy-response.json`
+- `fixtures/api/projects/project-detail-not-found-response.json`
 
 ### 5.3 Flow
 - `flow-create-happy-request/response`
 - `flow-update-invalid-definition-response`
 - `flow-binding-save-happy-request/response`
 
+현재 baseline 경로:
+- `fixtures/api/flows/flow-create-happy-request.json`
+- `fixtures/api/flows/flow-create-happy-response.json`
+- `fixtures/api/flows/flow-update-invalid-definition-response.json`
+- `fixtures/api/flows/flow-binding-save-happy-request.json`
+- `fixtures/api/flows/flow-binding-save-happy-response.json`
+
 ### 5.4 DataDefinition
 - `data-definition-create-happy-request/response`
 - `data-definition-create-validation-error-response`
+
+현재 baseline 경로:
+- `fixtures/api/data-definitions/data-definition-create-happy-request.json`
+- `fixtures/api/data-definitions/data-definition-create-happy-response.json`
+- `fixtures/api/data-definitions/data-definition-create-validation-error-response.json`
 
 ### 5.5 Connection
 - `connection-create-jdbc-happy-request/response`
@@ -81,9 +106,18 @@ fixtures/
 - `connection-detail-masked-response`
 - `connection-create-invalid-response`
 
+현재 baseline 경로:
+- `fixtures/api/connections/connection-create-jdbc-happy-request.json`
+- `fixtures/api/connections/connection-create-jdbc-happy-response.json`
+- `fixtures/api/connections/connection-create-rest-bearer-happy-request.json`
+- `fixtures/api/connections/connection-create-rest-bearer-happy-response.json`
+- `fixtures/api/connections/connection-detail-masked-response.json`
+- `fixtures/api/connections/connection-create-invalid-response.json`
+
 ### 5.6 Deployment / Runtime
 - `deployment-create-happy-request/response`
 - `deployment-status-conflict-response`
+- `deployment-rollback-happy-request/response`
 - `dry-run-happy-request/response`
 - `dry-run-unsupported-node-response`
 - `execute-stub-sync-happy-request/response`
@@ -98,7 +132,12 @@ fixtures/
 - `sql-executor-node-validation-error.json`
 
 현재 baseline 경로:
-- API runtime:
+- API deployment/runtime:
+  - `fixtures/api/deployments/deployment-create-happy-request.json`
+  - `fixtures/api/deployments/deployment-create-happy-response.json`
+  - `fixtures/api/deployments/deployment-status-conflict-response.json`
+  - `fixtures/api/deployments/deployment-rollback-happy-request.json`
+  - `fixtures/api/deployments/deployment-rollback-happy-response.json`
   - `fixtures/api/runtime/dry-run-happy-request.json`
   - `fixtures/api/runtime/dry-run-happy-response.json`
   - `fixtures/api/runtime/dry-run-unsupported-node-response.json`
@@ -124,6 +163,18 @@ fixtures/
 - `execution-completed-event`
 - `execution-failed-event`
 
+현재 baseline 경로:
+- `fixtures/events/runtime/execution-started-event.json`
+- `fixtures/events/runtime/execution-step-completed-event.json`
+- `fixtures/events/runtime/execution-completed-event.json`
+- `fixtures/events/runtime/execution-failed-event.json`
+
+### 5.8 Seeds
+- `control-plane-minimal-seed`
+
+현재 baseline 경로:
+- `fixtures/seeds/control-plane-minimal-seed.json`
+
 ## 6. 사용 규칙
 - 문서 예시, contract test, integration test에서 같은 fixture를 재사용한다.
 - fixture의 `code`, `status`, `eventType`, `schemaVersion`은 기준 문서와 일치해야 한다.
@@ -146,12 +197,15 @@ fixtures/
   - routing key 대응 eventType
   - 필수 payload 필드 존재
   - `deploymentId`, `nodeType`, `startedAt/finishedAt` 존재 여부
+- seed fixture:
+  - 기능별 fixture가 참조하는 최소 프로젝트/flow/dataDefinition/connection/deployment 식별자 일치
 
 ## 8. 증적 기준
 - fixture는 테스트 입력/출력과 동일한 구조여야 한다.
 - CI contract test 결과가 해당 fixture 이름과 매핑 가능해야 한다.
 - 문서 예시는 fixture에서 파생하는 것을 원칙으로 한다.
 - 내부 실행 fixture는 외부 API request body가 아니라 `my-console-backend -> my-backend` 전달 payload 기준으로도 보관한다.
+- control-plane fixture와 runtime/event fixture는 공통 seed 식별자 세트를 재사용한다.
 
 ## 9. 참조
 - `docs/spec/api/control-plane-api-baseline.md`

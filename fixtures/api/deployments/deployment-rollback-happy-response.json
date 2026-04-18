@@ -1,0 +1,7 @@
+{
+  "rollbackDeploymentId": 102,
+  "sourceDeploymentId": 101,
+  "targetDeploymentId": 99,
+  "status": "ROLLBACK_REQUESTED",
+  "requestedAt": "2026-04-18T09:20:00Z"
+}

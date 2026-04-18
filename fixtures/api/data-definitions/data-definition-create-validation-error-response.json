@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:03:00Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2001",
+  "message": "schemaJson.type is required",
+  "path": "/api/projects/1/data-definitions",
+  "details": [
+    {
+      "field": "schemaJson.type",
+      "reason": "must not be blank"
+    }
+  ],
+  "traceId": "trace-20260418-0104"
+}

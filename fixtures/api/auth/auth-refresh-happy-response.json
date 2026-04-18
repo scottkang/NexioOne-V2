@@ -1,0 +1,14 @@
+{
+  "accessToken": "jwt-access-token-2",
+  "refreshToken": "jwt-refresh-token-2",
+  "tokenType": "Bearer",
+  "expiresIn": 3600,
+  "authorities": [
+    "PROJECT_READ",
+    "PROJECT_WRITE",
+    "DEPLOYMENT_READ",
+    "DEPLOYMENT_WRITE",
+    "RUNTIME_READ",
+    "RUNTIME_EXECUTE"
+  ]
+}

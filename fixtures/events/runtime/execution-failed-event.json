@@ -1,0 +1,23 @@
+{
+  "eventId": "evt-20260418-0004",
+  "eventType": "execution.failed",
+  "schemaVersion": 1,
+  "occurredAt": "2026-04-18T09:45:02Z",
+  "source": "my-backend",
+  "payload": {
+    "executionId": "exec-20260418-0002",
+    "projectId": 1,
+    "deploymentId": 101,
+    "flowId": 10,
+    "flowKey": "customer-sync",
+    "mode": "EXECUTE_STUB",
+    "status": "FAILED",
+    "startedAt": "2026-04-18T09:45:00Z",
+    "finishedAt": "2026-04-18T09:45:02Z",
+    "durationMs": 2000,
+    "error": {
+      "code": "BE-2301",
+      "message": "stub execution failed"
+    }
+  }
+}

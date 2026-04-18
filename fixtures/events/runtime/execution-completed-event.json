@@ -1,0 +1,24 @@
+{
+  "eventId": "evt-20260418-0003",
+  "eventType": "execution.completed",
+  "schemaVersion": 1,
+  "occurredAt": "2026-04-18T09:45:02Z",
+  "source": "my-backend",
+  "payload": {
+    "executionId": "exec-20260418-0001",
+    "projectId": 1,
+    "deploymentId": 101,
+    "flowId": 10,
+    "flowKey": "customer-sync",
+    "mode": "EXECUTE_STUB",
+    "status": "SUCCEEDED",
+    "startedAt": "2026-04-18T09:45:00Z",
+    "finishedAt": "2026-04-18T09:45:02Z",
+    "durationMs": 2000,
+    "summary": {
+      "totalSteps": 5,
+      "succeededSteps": 5,
+      "failedSteps": 0
+    }
+  }
+}

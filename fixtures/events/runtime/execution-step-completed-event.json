@@ -1,0 +1,19 @@
+{
+  "eventId": "evt-20260418-0002",
+  "eventType": "execution.step.completed",
+  "schemaVersion": 1,
+  "occurredAt": "2026-04-18T09:45:01Z",
+  "source": "my-backend",
+  "payload": {
+    "executionId": "exec-20260418-0001",
+    "projectId": 1,
+    "flowId": 10,
+    "nodeType": "START",
+    "nodeId": "start",
+    "status": "SUCCEEDED",
+    "startedAt": "2026-04-18T09:45:00Z",
+    "finishedAt": "2026-04-18T09:45:01Z",
+    "durationMs": 5,
+    "message": "step completed"
+  }
+}

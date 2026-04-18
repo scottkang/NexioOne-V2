@@ -1,0 +1,5 @@
+{
+  "targetDeploymentId": 99,
+  "reason": "rollback due to runtime issue",
+  "requestedBy": "owner@nexioone.local"
+}

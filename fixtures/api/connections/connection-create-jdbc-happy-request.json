@@ -1,0 +1,11 @@
+{
+  "name": "source-db",
+  "type": "JDBC",
+  "properties": {
+    "url": "jdbc:postgresql://db:5432/app",
+    "username": "app"
+  },
+  "secrets": {
+    "password": "masked-or-write-only"
+  }
+}

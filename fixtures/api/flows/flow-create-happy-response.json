@@ -1,0 +1,10 @@
+{
+  "id": 10,
+  "projectId": 1,
+  "name": "customer-sync",
+  "description": "sync customer master",
+  "version": 1,
+  "status": "DRAFT",
+  "createdAt": "2026-04-18T09:00:00Z",
+  "updatedAt": "2026-04-18T09:00:00Z"
+}

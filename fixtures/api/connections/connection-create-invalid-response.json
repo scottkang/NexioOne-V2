@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T09:04:00Z",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "code": "BE-2001",
+  "message": "connection properties validation failed",
+  "path": "/api/projects/1/connections",
+  "details": [
+    {
+      "field": "properties.url",
+      "reason": "must not be blank for JDBC"
+    }
+  ],
+  "traceId": "trace-20260418-0105"
+}

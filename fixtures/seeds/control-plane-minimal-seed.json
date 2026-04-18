@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "Customer Sync",
+      "description": "customer integration project"
+    }
+  ],
+  "flows": [
+    {
+      "id": 10,
+      "projectId": 1,
+      "name": "customer-sync",
+      "version": 1
+    }
+  ],
+  "dataDefinitions": [
+    {
+      "id": 7,
+      "projectId": 1,
+      "name": "CustomerRequest"
+    },
+    {
+      "id": 8,
+      "projectId": 1,
+      "name": "CustomerResponse"
+    }
+  ],
+  "connections": [
+    {
+      "id": 12,
+      "projectId": 1,
+      "name": "source-db",
+      "type": "JDBC"
+    },
+    {
+      "id": 13,
+      "projectId": 1,
+      "name": "crm-api",
+      "type": "REST"
+    }
+  ],
+  "deployments": [
+    {
+      "id": 101,
+      "projectId": 1,
+      "flowId": 10,
+      "version": "v1",
+      "status": "CREATED"
+    }
+  ]
+}
