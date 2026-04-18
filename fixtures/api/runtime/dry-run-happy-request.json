@@ -1,0 +1,11 @@
+{
+  "deploymentId": 101,
+  "inputContext": {
+    "customerId": "C100",
+    "source": "crm"
+  },
+  "options": {
+    "trace": true,
+    "validateOnly": false
+  }
+}

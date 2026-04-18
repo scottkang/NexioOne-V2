@@ -1,0 +1,16 @@
+{
+  "nodeType": "MAPPING",
+  "requiredConfig": [
+    "mappings"
+  ],
+  "stubOutput": {
+    "metadata": {
+      "mapped": true,
+      "appliedRules": 2
+    }
+  },
+  "outputContextDelta": {
+    "mapped": true
+  },
+  "retryable": false
+}

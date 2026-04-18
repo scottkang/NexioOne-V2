@@ -1,0 +1,74 @@
+{
+  "executionId": "stub-20260418-0001",
+  "flowId": 10,
+  "mode": "EXECUTE_STUB",
+  "status": "SUCCEEDED",
+  "outputContext": {
+    "customerId": "C100",
+    "amount": 1250,
+    "mapped": true,
+    "apiCall": {
+      "statusCode": 200,
+      "stubbed": true
+    },
+    "sqlResult": {
+      "rowsAffected": 1,
+      "stubbed": true
+    }
+  },
+  "steps": [
+    {
+      "nodeId": "start",
+      "nodeType": "START",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:00Z",
+      "finishedAt": "2026-04-18T09:32:00Z"
+    },
+    {
+      "nodeId": "mapping",
+      "nodeType": "MAPPING",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:00Z",
+      "finishedAt": "2026-04-18T09:32:01Z",
+      "result": {
+        "metadata": {
+          "mapped": true,
+          "appliedRules": 2
+        }
+      }
+    },
+    {
+      "nodeId": "rest",
+      "nodeType": "REST_CLIENT",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:01Z",
+      "finishedAt": "2026-04-18T09:32:01Z",
+      "result": {
+        "response": {
+          "statusCode": 200,
+          "stubbed": true
+        }
+      }
+    },
+    {
+      "nodeId": "sql",
+      "nodeType": "SQL_EXECUTOR",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:01Z",
+      "finishedAt": "2026-04-18T09:32:02Z",
+      "result": {
+        "sqlResult": {
+          "rowsAffected": 1,
+          "stubbed": true
+        }
+      }
+    },
+    {
+      "nodeId": "end",
+      "nodeType": "END",
+      "status": "SUCCEEDED",
+      "startedAt": "2026-04-18T09:32:02Z",
+      "finishedAt": "2026-04-18T09:32:02Z"
+    }
+  ]
+}

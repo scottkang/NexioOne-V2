@@ -1,0 +1,70 @@
+{
+  "projectId": 1,
+  "deploymentId": 101,
+  "executionId": "exec-20260418-0001",
+  "requestedBy": "owner@nexioone.local",
+  "flowDefinition": {
+    "flowId": 10,
+    "flowKey": "customer-sync",
+    "version": "v1",
+    "nodes": [
+      {
+        "id": "start",
+        "type": "START",
+        "config": {}
+      },
+      {
+        "id": "mapping",
+        "type": "MAPPING",
+        "config": {
+          "mappings": [
+            {
+              "target": "customerId",
+              "source": "$.customerId"
+            }
+          ]
+        }
+      },
+      {
+        "id": "end",
+        "type": "END",
+        "config": {}
+      }
+    ],
+    "edges": [
+      {
+        "sourceNodeId": "start",
+        "targetNodeId": "mapping"
+      },
+      {
+        "sourceNodeId": "mapping",
+        "targetNodeId": "end"
+      }
+    ]
+  },
+  "connectionProfiles": [],
+  "flowBindings": [
+    {
+      "role": "INPUT",
+      "bindingKey": "requestBody",
+      "required": true,
+      "dataDefinitionId": 7,
+      "dataDefinitionVersion": 3,
+      "schemaJson": {
+        "type": "object",
+        "required": [
+          "customerId"
+        ]
+      }
+    }
+  ],
+  "inputContext": {
+    "customerId": "C100"
+  },
+  "options": {
+    "mode": "EXECUTE_STUB",
+    "async": false,
+    "trace": true,
+    "timeoutMs": 30000
+  }
+}

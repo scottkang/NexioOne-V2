@@ -15,6 +15,7 @@
 - `dry-run`, `execute-stub`, `execution status` 샘플
 - 지원 노드/미지원 노드 flowDefinition 샘플
 - 내부 실행 payload의 `projectId`, `deploymentId`, `requestedBy`, `flowBindings` 포함 샘플
+- node별 required config, stub output, validation error 샘플
 
 ### 2.3 Event Fixture
 - `execution.started`
@@ -39,6 +40,7 @@ fixtures/
   runtime/
     flow-definitions/
     input-contexts/
+    nodes/
   events/
     runtime/
   seeds/
@@ -90,8 +92,31 @@ fixtures/
 - `execution-status-running-response`
 - `execute-request-with-flow-bindings.json`
 - `mapping-node-stub-success.json`
+- `rest-client-node-stub-success.json`
 - `rest-client-node-validation-error.json`
+- `sql-executor-node-stub-success.json`
 - `sql-executor-node-validation-error.json`
+
+현재 baseline 경로:
+- API runtime:
+  - `fixtures/api/runtime/dry-run-happy-request.json`
+  - `fixtures/api/runtime/dry-run-happy-response.json`
+  - `fixtures/api/runtime/dry-run-unsupported-node-response.json`
+  - `fixtures/api/runtime/execute-stub-sync-happy-request.json`
+  - `fixtures/api/runtime/execute-stub-sync-happy-response.json`
+  - `fixtures/api/runtime/execute-stub-async-accepted-request.json`
+  - `fixtures/api/runtime/execute-stub-async-accepted-response.json`
+  - `fixtures/api/runtime/execute-stub-idempotency-conflict-response.json`
+  - `fixtures/api/runtime/execution-status-running-response.json`
+- Runtime contract:
+  - `fixtures/runtime/execute-request-with-flow-bindings.json`
+  - `fixtures/runtime/flow-definitions/unsupported-node-flow-definition.json`
+  - `fixtures/runtime/nodes/start-end-dry-run-success.json`
+  - `fixtures/runtime/nodes/mapping-node-stub-success.json`
+  - `fixtures/runtime/nodes/rest-client-node-stub-success.json`
+  - `fixtures/runtime/nodes/rest-client-node-validation-error.json`
+  - `fixtures/runtime/nodes/sql-executor-node-stub-success.json`
+  - `fixtures/runtime/nodes/sql-executor-node-validation-error.json`
 
 ### 5.7 Events
 - `execution-started-event`
@@ -111,6 +136,8 @@ fixtures/
   - error code / HTTP status 일치
 - runtime fixture:
   - 지원 노드와 미지원 노드 구분
+  - `DRY_RUN`은 `START`, `END` trace만 남기고 `inputContext`를 그대로 `outputContext`로 반환
+  - `EXECUTE_STUB`은 지원 노드 step 결과와 `outputContext` 조립 규칙을 남김
   - idempotency conflict 응답 일치
   - `flowBindings` snapshot 포함 여부
   - node별 stub output shape 일치

@@ -1,0 +1,11 @@
+{
+  "deploymentId": 101,
+  "inputContext": {
+    "customerId": "C100",
+    "amount": 1250
+  },
+  "options": {
+    "async": false,
+    "trace": true
+  }
+}

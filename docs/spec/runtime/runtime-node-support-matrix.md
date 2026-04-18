@@ -51,13 +51,24 @@
 - `MAPPING`의 컨텍스트 merge 충돌은 마지막 rule 우선으로 처리한다.
 - `REST_CLIENT`와 `SQL_EXECUTOR`의 retry는 이번 프로그램에서 자동 재시도가 아니라 "재시도 가능 오류 분류" 의미만 가진다.
 - step trace가 활성화되면 각 node는 최소 `nodeId`, `nodeType`, `status`, `startedAt`, `finishedAt`를 남긴다.
+- `DRY_RUN`은 `START`, `END`만 trace 대상이며 `outputContext`는 `inputContext`를 그대로 반환한다.
+- `EXECUTE_STUB`은 지원 노드 전체를 step으로 기록하며 `MAPPING` merge 결과와 connector stub result를 `outputContext`에 반영한다.
 
-## 6. Validation Rules
+## 6. Fixture Mapping
+| Node Type | Happy Path Fixture | Validation/Error Fixture |
+|---|---|---|
+| `START`, `END` | `fixtures/runtime/nodes/start-end-dry-run-success.json` | 구조 오류는 `BE-2102`로 처리 |
+| `MAPPING` | `fixtures/runtime/nodes/mapping-node-stub-success.json` | `mappings` 누락/빈 배열 시 `BE-2001` |
+| `REST_CLIENT` | `fixtures/runtime/nodes/rest-client-node-stub-success.json` | `fixtures/runtime/nodes/rest-client-node-validation-error.json` |
+| `SQL_EXECUTOR` | `fixtures/runtime/nodes/sql-executor-node-stub-success.json` | `fixtures/runtime/nodes/sql-executor-node-validation-error.json` |
+| Unsupported Node | `fixtures/runtime/flow-definitions/unsupported-node-flow-definition.json` | `fixtures/api/runtime/dry-run-unsupported-node-response.json` |
+
+## 7. Validation Rules
 - `START`는 정확히 1개
 - `END`는 최소 1개
 - 미지원 노드 포함 시 `422` + `BE-2102`
 - 순환 구조는 이번 프로그램에서 불허
 
-## 7. 참조
+## 8. 참조
 - `docs/spec/api/internal-execution-schema.md`
 - `docs/spec/modules/my-backend.md`
