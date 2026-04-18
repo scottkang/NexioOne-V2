@@ -36,6 +36,23 @@ NexioOne의 프론트엔드 웹 애플리케이션으로, 사용자가 프로젝
 - dry-run / execute-stub 호출 화면
 - runtime 상태 조회 화면
 
+### 이번 프로그램 화면 기준
+| Screen Group | Primary APIs | Required Permission | Notes |
+|---|---|---|---|
+| 로그인/세션 | `POST /api/auth/login`, `POST /api/auth/refresh` | 없음 | JWT `authorities`, `projectScopes` 저장 |
+| 프로젝트/Flow/DataDefinition/Connection | `control-plane-api-baseline.md` 범위 CRUD | 조회 `PROJECT_READ`, 변경 `PROJECT_WRITE` | 기본 설계/편집 화면 |
+| Deployment | `POST/PATCH/POST /api/projects/{projectId}/deployments*` | 조회 `DEPLOYMENT_READ`, 변경 `DEPLOYMENT_WRITE` | 실행 버튼과 분리 |
+| Dry-Run / Execute-Stub | `POST /runtime/flows/{flowId}/dry-run`, `POST /runtime/flows/{flowId}/execute-stub` | `RUNTIME_EXECUTE` | reserved `DEPLOYMENT_EXECUTE` 미사용 |
+| Runtime Status | `GET /runtime/skeleton`, `.../scheduler/status`, `.../triggers/status`, `.../dispatch/summary`, `.../executions/{executionId}` | `RUNTIME_READ` | 읽기 전용 모니터링/상태 확인 |
+
+### 비범위
+- `DEPLOYMENT_EXECUTE` 전용 UI
+- transaction viewer / 장기 이력 read model 화면
+- API designer / API product 화면
+- 실 connector 실행 UI
+
 ## 연관 문서
 - [Product Spec](../foundation/product-spec.md)
 - [API Spec](../api/api-spec.md)
+- [Frontend Development Guide](../guides/frontend-development-guide.md)
+- [Security Authority Matrix](../security/security-authority-matrix.md)

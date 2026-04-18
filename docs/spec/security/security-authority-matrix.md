@@ -35,6 +35,13 @@
 - `dry-run`, `execute-stub`, runtime execution status API는 `RUNTIME_EXECUTE` / `RUNTIME_READ`를 사용한다.
 - `DEPLOYMENT_EXECUTE`는 reserved 권한으로 정의만 유지하며 외부 API baseline에는 아직 연결하지 않는다.
 
+### 4.1 Frontend UI 해석 기준
+- `my-console`은 이번 프로그램에서 `DEPLOYMENT_EXECUTE`를 버튼 노출 조건으로 사용하지 않는다.
+- 배포 생성, 상태 변경, 롤백은 `DEPLOYMENT_WRITE`로만 제어한다.
+- dry-run, execute-stub, 재실행 계열 UI 액션은 `RUNTIME_EXECUTE`로 제어한다.
+- runtime 상태 조회 화면과 execution status polling은 `RUNTIME_READ`로 제어한다.
+- control-plane CRUD 화면은 `PROJECT_READ` / `PROJECT_WRITE` 조합으로 제어한다.
+
 ## 5. 프로젝트 Scope 판정 규칙
 - 권한 코드는 "기능 가능 여부"를, 프로젝트 scope는 "대상 프로젝트 접근 가능 여부"를 의미한다.
 - 아래 두 조건을 모두 만족해야 프로젝트 하위 API 접근을 허용한다.
