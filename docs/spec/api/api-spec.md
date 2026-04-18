@@ -1,11 +1,24 @@
-# NexioOne API Spec (Priority Baseline)
+# NexioOne API Spec (External API Baseline: Deployment + Runtime)
 
 ## 1. 목적
-- 본 문서는 우선 구현 대상 API의 외부 계약을 고정한다.
-- 본 문서는 `deployment`, `dry-run`, `execute-stub`, `runtime 조회` API를 우선 상세화한다.
-- 인증과 Control Plane CRUD API는 이번 프로그램 범위에 포함되며, 상세 계약은 별도 기준 문서 또는 후속 API 부속 문서로 보강한다.
+- 본 문서는 이번 프로그램 외부 API 기준선 중 `deployment`, `dry-run`, `execute-stub`, `runtime 조회` 영역을 상세화한다.
+- 본 문서는 `control-plane-api-baseline.md`와 함께 외부 API 단일 계약 묶음을 구성한다.
+- 이번 프로그램의 인증과 Control Plane CRUD API는 후속 범위가 아니라 현재 범위이며, 기준 문서는 `control-plane-api-baseline.md`로 고정한다.
 - 상세 DTO는 `api-dto-baseline.md`를 함께 기준으로 사용한다.
 - 오류 응답은 `error-response-baseline.md`를 우선 기준으로 사용한다.
+
+## 1.1 외부 API 계약 묶음
+| 계약 영역 | 기준 문서 | 비고 |
+|---|---|---|
+| 인증 / Project / Flow / DataDefinition / Connection CRUD | `control-plane-api-baseline.md` | Control Plane CRUD 단일 기준 |
+| Deployment / Dry-Run / Execute-Stub / Runtime 조회 | `api-spec.md` | 본 문서 |
+| 공통 DTO | `api-dto-baseline.md` | 필드명/응답 shape 기준 |
+| 공통 오류 응답 | `error-response-baseline.md` | `ApiErrorResponse` 단일 기준 |
+
+## 1.2 해석 규칙
+- 외부 API 전체 범위 판정은 `release-scope.md`를 따른다.
+- Control Plane CRUD와 Deployment/Runtime API는 같은 이번 프로그램 범위에 속한다.
+- 새 외부 API 부속 문서를 만들더라도, 위 표의 기준 문서를 대체하거나 충돌시키면 안 된다.
 
 ## 2. 공통 규칙
 
@@ -55,7 +68,16 @@
 - `500`: `SYS-0001`
 - `503`: `SYS-1503`
 
-## 3. Deployment API
+## 3. 이번 프로그램 외부 API 범위
+- 인증 API: `control-plane-api-baseline.md`
+- Project / Flow / DataDefinition / Connection CRUD: `control-plane-api-baseline.md`
+- Deployment API: 본 문서
+- Runtime Read API: 본 문서
+- Dry-Run API: 본 문서
+- Execute-Stub API: 본 문서
+- Execution Status API: 본 문서
+
+## 4. Deployment API
 
 ### 3.1 배포 생성
 - `POST /api/projects/{projectId}/deployments`
@@ -140,7 +162,7 @@ Response `202`:
 }
 ```
 
-## 4. Runtime Read API
+## 5. Runtime Read API
 
 ### 4.1 Runtime Skeleton 조회
 - `GET /api/projects/{projectId}/runtime/skeleton`
@@ -216,7 +238,7 @@ Response `200`:
 }
 ```
 
-## 5. Dry-Run API
+## 6. Dry-Run API
 
 ### 5.1 Flow Dry-Run 실행
 - `POST /api/projects/{projectId}/runtime/flows/{flowId}/dry-run`
@@ -262,7 +284,7 @@ Validation:
 - Flow 미존재 시 `404`
 - Flow 구조 오류 시 `422`
 
-## 6. Execute-Stub API
+## 7. Execute-Stub API
 
 ### 6.1 Stub 실행
 - `POST /api/projects/{projectId}/runtime/flows/{flowId}/execute-stub`
@@ -316,7 +338,7 @@ Validation:
 - `options.async` 미지정 시 `false`
 - 비동기 접수 후 중복 실행 요청 충돌 시 `409`
 
-## 7. 우선 고정 대상 조회 API
+## 8. 우선 고정 대상 조회 API
 
 ### 7.1 실행 상태 조회
 - `GET /api/projects/{projectId}/runtime/executions/{executionId}`
@@ -343,14 +365,14 @@ Response `200`:
 - 존재하지 않는 `executionId`는 `404`
 - scope 밖 프로젝트 접근은 `403`
 
-## 8. 구현 순서 권고
+## 9. 구현 순서 권고
 1. Deployment API
 2. Runtime 조회 API
 3. Dry-Run API
 4. Execute-Stub API
 5. 실행 상태 조회 API
 
-## 9. 참조
+## 10. 참조
 - `docs/spec/api/control-plane-api-baseline.md`
 - `docs/spec/api/api-dto-baseline.md`
 - `docs/spec/security/security-authority-matrix.md`

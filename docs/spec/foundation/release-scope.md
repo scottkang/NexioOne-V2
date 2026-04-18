@@ -8,6 +8,16 @@
 - 이번 개발 프로그램에서 실제 구현 대상으로 간주하는 범위를 단일 문서로 고정한다.
 - `product-spec.md`의 상위 방향성과 개별 설계 문서 사이 해석 차이를 줄인다.
 
+## 1.1 단일 기준 규칙
+- 이번 프로그램의 MVP 범위 해석은 본 문서를 최우선 기준으로 사용한다.
+- `product-spec.md`, `modules/*.md`, `api/*.md`, `runtime/*.md`는 본 문서와 충돌하지 않도록 해석해야 한다.
+- 개별 모듈 문서에 차기 범위가 함께 적혀 있어도, 이번 프로그램 포함 여부 판정은 본 문서를 따른다.
+- 외부 API 계약의 단일 묶음은 아래 문서 집합으로 고정한다.
+  - 제어 평면 CRUD/API: `docs/spec/api/control-plane-api-baseline.md`
+  - Deployment/Runtime API: `docs/spec/api/api-spec.md`
+  - 공통 DTO: `docs/spec/api/api-dto-baseline.md`
+  - 공통 오류 응답: `docs/spec/api/error-response-baseline.md`
+
 ## 2. In Scope
 
 ### 2.1 Control Plane
@@ -58,13 +68,18 @@
 
 ## 5. 의존성
 - 인증/권한 기준: `security-authority-matrix.md`
-- 외부 API 기준: `api-spec.md`
+- 외부 API 기준:
+  - `control-plane-api-baseline.md`
+  - `api-spec.md`
+  - `api-dto-baseline.md`
+  - `error-response-baseline.md`
 - 내부 실행 계약: `internal-api-contract-design.md`
 - 에러 응답 기준: `error-response-baseline.md`
 - runtime 이벤트 기준: `runtime-event-schema.md`
 - 노드 지원 범위: `runtime-node-support-matrix.md`
 
 ## 6. 완료 기준
+- `release-scope.md`만 읽어도 이번 프로그램 포함/제외 범위를 판정할 수 있다.
 - In Scope API가 요청/응답/에러 형식까지 문서로 고정된다.
 - Control Plane CRUD와 runtime 실행 API가 같은 권한/에러 체계를 사용한다.
 - runtime/logging 이벤트 계약이 단일 schema로 고정된다.
