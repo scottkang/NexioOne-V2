@@ -5,9 +5,10 @@
 **As Of**: `2026-04-18`
 
 ## 1. 판정
-- 현재 `docs/spec`는 MVP 범위와 핵심 계약의 큰 축은 정리됐다.
-- 하지만 구현팀이 바로 병렬 개발에 들어가기에는 아직 "단일 기준 문서 + 단일 계약 산출물 + fixture"가 부족하다.
-- 따라서 현재 상태는 `문서 기반 구현 착수 직전`이며, 아래 backlog를 먼저 닫는 것을 권장한다.
+- 현재 `docs/spec`는 MVP 범위, 핵심 계약, fixture baseline의 큰 축이 정리됐다.
+- `P0-1`~`P0-5`, `P1-3`, `P1-4`는 문서 기준선 관점에서 완료로 본다.
+- 현재 잔여 backlog는 `DataDefinition/Binding 전환 규칙`, `Connection 유형별 세부 계약`, `문서 링크/상태 체계` 보강으로 압축된다.
+- 따라서 현재 상태는 `문서 기준 구현 착수 가능 + P1 보강 잔여`다.
 
 ## 2. 실행 원칙
 - P0는 "팀이 재질문 없이 착수 가능" 상태를 만드는 작업만 포함한다.
@@ -15,15 +16,18 @@
 - 각 backlog 항목은 문서 수정으로 끝내지 않고 `산출물`까지 남겨야 완료로 본다.
 
 ## 3. 권장 실행 순서
-1. 범위와 기준 문서의 단일 해석을 고정한다.
-2. 외부 API 계약을 단일 산출물로 고정한다.
-3. 내부 실행 payload, async/status, idempotency 규칙을 고정한다.
-4. runtime event, DLQ, read model 반영 규칙을 고정한다.
-5. runtime node 의미론을 fixture 수준으로 고정한다.
-6. fixture, traceability, DoD를 구현 기준으로 연결한다.
-7. DataDefinition/Connection 세부 계약과 UI 권한 정합성을 보강한다.
+1. DataDefinition / Flow Binding 전환 규칙을 잠근다.
+2. Connection 유형별 세부 계약과 validation 규칙을 fixture 수준으로 보강한다.
+3. 문서 링크와 상태 체계를 최종 정리한다.
 
 ## 4. P0 Backlog
+
+현황:
+- `P0-1`: 완료
+- `P0-2`: 완료
+- `P0-3`: 완료
+- `P0-4`: 완료
+- `P0-5`: 완료
 
 ### P0-1. 범위 단일화
 - 목표:
@@ -109,6 +113,12 @@
 
 ## 5. P1 Backlog
 
+현황:
+- `P1-1`: 미완료
+- `P1-2`: 미완료
+- `P1-3`: 완료
+- `P1-4`: 완료
+
 ### P1-1. DataDefinition / Flow Binding 전환 규칙 보강
 - 목표:
   - `DataDefinition.type`의 deprecated 처리와 제거 시점 명확화
@@ -117,6 +127,12 @@
   - `docs/spec/data/flow-owned-data-definition-roles.md`
   - `docs/spec/api/control-plane-api-baseline.md`
   - `docs/spec/api/internal-execution-schema.md`
+- 권장 산출물:
+  - binding versioning rule 표
+  - update conflict / migration fixture
+- 완료 기준:
+  - `DataDefinition.type`의 유지/제거 시점이 문서에 명시된다.
+  - binding update 충돌 정책이 API와 runtime snapshot 규칙에 연결된다.
 
 ### P1-2. Connection 유형별 계약 보강
 - 목표:
@@ -125,8 +141,15 @@
   - `docs/spec/data/connection-profile-contract.md`
   - `docs/spec/security/security-encryption-design.md`
   - `docs/spec/api/internal-execution-schema.md`
+- 권장 산출물:
+  - 유형별 필수/옵션 필드 표
+  - JDBC/REST/MQ/SFTP fixture seed
+- 완료 기준:
+  - 유형별 필수 필드와 secret key 이름이 문서에 잠긴다.
+  - 외부 API request, 저장 모델, runtime 전달 shape가 같은 용어로 연결된다.
 
 ### P1-3. 테스트 전략을 실행 단위로 연결
+- 상태: 완료 (`#17`, PR `#18`)
 - 목표:
   - 기능별 테스트 책임, contract ownership, evidence 이름을 구현 task와 직접 연결
 - 주요 문서:
@@ -139,6 +162,7 @@
   - 기능별 happy path / error fixture seed
 
 ### P1-4. 프론트엔드 가이드 정합성 보정
+- 상태: 완료 (`#19`, PR `#20`)
 - 목표:
   - reserved 권한과 실제 baseline API 권한이 혼동되지 않게 수정
   - 화면별 API/권한/상태 모델 매핑 추가
@@ -157,36 +181,28 @@
 
 ## 7. 세션 단위 권장 작업 묶음
 
-### Session A
-- `release-scope`, `product-spec`, `modules/*.md` 범위 정렬
-- 상태 용어 표 통일
+### Session F
+- `P1-1` DataDefinition / Flow Binding 전환 규칙 고정
+- binding versioning / conflict 정책 문서화
 
-### Session B
-- 외부 API 단일 계약화
-- 에러 응답/권한/페이징 정합성 점검
+### Session G
+- `P1-2` Connection 유형별 계약 보강
+- JDBC/REST/MQ/SFTP validation 및 secret key 규칙 fixture 연결
 
-### Session C
-- 내부 실행 계약, async/status/idempotency 고정
-- runtime 상태 조회 ownership 확정
-
-### Session D
-- runtime event/DLQ/read model projection 규칙 고정
-- producer/consumer fixture 작성 시작
-
-### Session E
-- node별 fixture, trace/output 규칙 고정
-- 테스트/추적성 문서와 연결
+### Session H
+- 문서 링크/상태 체계 정리
+- `Baseline` / `Draft/Design` / `Not Implemented` 표기 규칙과 깨진 링크 정비
 
 ## 8. 현재 리스크
-- `fixtures/` 디렉터리가 아직 없어 contract test 기준물이 부재하다.
-- 일부 문서는 `Baseline`이어도 실제 구현용 단일 산출물(OpenAPI/JSON Schema)까지는 내려오지 않았다.
-- 프론트 권한 예시에 `DEPLOYMENT_EXECUTE`가 남아 있어 reserved 권한과 실제 사용 권한이 혼동될 수 있다.
-- 기존 handoff는 `#1`, `type/1-docs-spec-p0-checklist` 기준이라 최신 세션 기준으로 갱신이 필요하다.
+- `Connection` 유형별 세부 계약이 아직 공통 shape 수준이라 구현 시 추정이 섞일 수 있다.
+- `DataDefinition` / binding 전환 규칙이 완전히 잠기지 않아 향후 CRUD/배포 snapshot 처리에서 재작업 가능성이 있다.
+- 일부 문서는 상태 표기나 참조 링크가 여전히 균일하지 않다.
+- 저장소에는 `my-backend/`, `my-console-backend/` 로컬 자산이 남아 있어 문서 작업과 구현 작업 범위가 섞여 보일 수 있다.
 
 ## 9. 권장 다음 액션
-1. `P0-1`과 `P0-2`를 같은 PR 또는 연속 PR로 먼저 닫는다.
-2. 이어서 `P0-3`과 `P0-4`를 contract/fixture 중심 PR로 묶는다.
-3. 마지막으로 `P0-5`와 `P1-3`을 연결해 runtime fixture baseline을 만든다.
+1. `P1-1` DataDefinition / Flow Binding 전환 규칙 보강을 먼저 닫는다.
+2. 이어서 `P1-2` Connection 유형별 계약 보강을 fixture 중심으로 닫는다.
+3. 마지막으로 문서 상태/링크 체계를 정리하고 구현 착수용 backlog를 다시 압축한다.
 
 ## 10. 참조
 - `docs/spec/foundation/development-gap-analysis.md`
