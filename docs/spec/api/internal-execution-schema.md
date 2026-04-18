@@ -164,6 +164,7 @@ Example:
 ## 7. FlowBinding Schema
 ```json
 {
+  "bindingVersion": 4,
   "role": "INPUT",
   "bindingKey": "requestBody",
   "required": true,
@@ -178,6 +179,7 @@ Example:
 
 | Field | Type | Required | Rules |
 |---|---|---|---|
+| `bindingVersion` | integer | Y | deployment snapshot version, positive |
 | `role` | string | Y | `INPUT`, `OUTPUT`, `INTERNAL` |
 | `bindingKey` | string | Y | flow 내 유일 logical key |
 | `required` | boolean | Y | 필수 여부 |
@@ -186,9 +188,11 @@ Example:
 | `schemaJson` | object | N | validation용 schema snapshot |
 
 Validation Rules:
+- 모든 binding은 동일한 deployment snapshot `bindingVersion`을 공유해야 한다.
 - `INPUT`, `OUTPUT`는 각 0..1개, `INTERNAL`은 복수 허용
 - `schemaJson`이 있으면 runtime validation은 snapshot 기준으로 수행한다.
 - 동일 요청 내 `role + bindingKey` 조합은 유일해야 한다.
+- `dataDefinitionVersion`은 snapshot 시점의 정본 버전이며 runtime은 실행 중 재조회로 덮어쓰지 않는다.
 - 이번 프로그램에서 `DRY_RUN`은 `INPUT` binding이 있으면 시작 payload validation에 사용한다.
 - 이번 프로그램에서 `EXECUTE_STUB`은 `OUTPUT` binding이 있으면 종료 payload validation에 사용한다.
 

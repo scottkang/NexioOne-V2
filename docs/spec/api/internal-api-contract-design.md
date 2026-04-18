@@ -111,9 +111,11 @@
 - optional array, 기본값 `[]`
 - deployment snapshot에서 계산된 Flow binding 목록이다.
 - runtime은 이번 프로그램에서 최소한 `INPUT`, `OUTPUT` binding을 사용해 시작/종료 payload 검증 기준을 맞춘다.
-- 각 항목 최소 필드: `role`, `bindingKey`, `required`, `dataDefinitionId`, `dataDefinitionVersion`
+- 각 항목 최소 필드: `bindingVersion`, `role`, `bindingKey`, `required`, `dataDefinitionId`, `dataDefinitionVersion`
 - `schemaJson`이 포함되면 runtime validation의 직접 기준으로 사용한다.
 - binding snapshot은 요청 시점의 배포 정본이며, runtime은 control plane DB를 재조회하지 않는다.
+- 같은 요청의 모든 binding은 동일한 `bindingVersion`을 가져야 한다.
+- control plane에서 binding set이 변경되더라도 이미 발급된 snapshot의 `bindingVersion`과 `dataDefinitionVersion`은 바뀌지 않는다.
 
 #### `inputContext`
 - 필수 object

@@ -83,6 +83,7 @@ fixtures/
 - `flow-create-happy-request/response`
 - `flow-update-invalid-definition-response`
 - `flow-binding-save-happy-request/response`
+- `flow-binding-version-conflict-response`
 
 현재 baseline 경로:
 - `fixtures/api/flows/flow-create-happy-request.json`
@@ -90,6 +91,7 @@ fixtures/
 - `fixtures/api/flows/flow-update-invalid-definition-response.json`
 - `fixtures/api/flows/flow-binding-save-happy-request.json`
 - `fixtures/api/flows/flow-binding-save-happy-response.json`
+- `fixtures/api/flows/flow-binding-version-conflict-response.json`
 
 ### 5.4 DataDefinition
 - `data-definition-create-happy-request/response`
@@ -149,6 +151,7 @@ fixtures/
   - `fixtures/api/runtime/execution-status-running-response.json`
 - Runtime contract:
   - `fixtures/runtime/execute-request-with-flow-bindings.json`
+  - `fixtures/runtime/flow-binding-snapshot-versioned.json`
   - `fixtures/runtime/flow-definitions/unsupported-node-flow-definition.json`
   - `fixtures/runtime/nodes/start-end-dry-run-success.json`
   - `fixtures/runtime/nodes/mapping-node-stub-success.json`

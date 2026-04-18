@@ -45,6 +45,7 @@
   "connectionProfiles": [],
   "flowBindings": [
     {
+      "bindingVersion": 4,
       "role": "INPUT",
       "bindingKey": "requestBody",
       "required": true,

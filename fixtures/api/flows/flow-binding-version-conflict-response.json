@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18T10:10:00Z",
+  "status": 409,
+  "error": "Conflict",
+  "code": "SYS-1409",
+  "message": "flow binding update conflict",
+  "path": "/api/projects/1/flows/10/data-bindings",
+  "details": [
+    {
+      "field": "bindingVersion",
+      "reason": "expected latest version 4"
+    }
+  ],
+  "traceId": "trace-20260418-0201"
+}
