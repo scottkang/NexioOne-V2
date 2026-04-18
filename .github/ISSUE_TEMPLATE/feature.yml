@@ -1,0 +1,75 @@
+name: Feature
+description: 새로운 기능 또는 개선 요청
+title: "[feat] "
+labels:
+  - type:feature
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: 배경/문제
+      description: 왜 이 작업이 필요한지 작성하세요.
+      placeholder: 현재 문제점, 사용자 요구, 운영 이슈 등
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: 목표
+      description: 이번 이슈의 달성 목표를 작성하세요.
+      placeholder: 무엇이 완료되면 이슈가 종료되는지
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 범위 (In / Out)
+      description: 포함할 내용과 제외할 내용을 구분해 주세요.
+      placeholder: |
+        In:
+        - ...
+        Out:
+        - ...
+    validations:
+      required: true
+  - type: dropdown
+    id: modules
+    attributes:
+      label: 영향 모듈
+      multiple: true
+      options:
+        - my-console
+        - my-console-backend
+        - my-backend
+        - docs
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 완료 조건 (DoD)
+      description: 검증 가능한 완료 기준을 체크리스트로 작성하세요.
+      placeholder: |
+        - [ ] 기능 A 동작
+        - [ ] 테스트 케이스 추가/갱신
+        - [ ] 문서 업데이트
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: 테스트/검증 방법
+      description: 실행 명령 또는 수동 검증 절차를 적어주세요.
+      placeholder: |
+        - my-backend: mvn -q test -Dtest=...
+        - my-console: npm run test
+    validations:
+      required: true
+  - type: textarea
+    id: risk_rollback
+    attributes:
+      label: 리스크/롤백
+      description: 예상 리스크와 실패 시 되돌리는 방법을 작성하세요.
+      placeholder: 주요 리스크, 롤백 절차
+    validations:
+      required: false

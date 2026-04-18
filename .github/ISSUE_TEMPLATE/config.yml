@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 운영/보안 문의
+    url: https://github.com/scottkang/NexioOne/discussions
+    about: 이슈 트래킹 외 문의는 Discussions를 사용하세요.

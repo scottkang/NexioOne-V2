@@ -1,0 +1,82 @@
+name: PR Guard
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  validate-and-label:
+    runs-on:
+      - self-hosted
+      - macOS
+    steps:
+      - name: Validate PR title/body/branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = (pr.title || "").trim();
+            const body = pr.body || "";
+            const branch = pr.head.ref || "";
+
+            const titlePattern = /^\[(feat|fix|chore|docs|refactor|test|perf)\]\s.+\s\(#\d+\)$/i;
+            const branchPattern = /^(feat|fix|chore|docs|refactor|test|perf)\/\d+-[a-z0-9-]+$/i;
+            const issuePattern = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+#\d+/i;
+
+            const failures = [];
+            if (!titlePattern.test(title)) {
+              failures.push("PR 제목 규칙 불일치: `[type] summary (#123)`");
+            }
+            if (!branchPattern.test(branch)) {
+              failures.push("브랜치 규칙 불일치: `type/{issue-number}-{slug}`");
+            }
+            if (!issuePattern.test(body)) {
+              failures.push("PR 본문에 이슈 연계가 필요합니다: `Closes #123`");
+            }
+
+            if (failures.length > 0) {
+              core.setFailed(failures.join("\n"));
+            }
+
+      - name: Apply module labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                per_page: 100
+              }
+            );
+
+            const labels = new Set();
+            for (const file of files) {
+              const name = file.filename;
+              if (name.startsWith("my-console/")) labels.add("module:my-console");
+              if (name.startsWith("my-console-backend/")) labels.add("module:my-console-backend");
+              if (name.startsWith("my-backend/")) labels.add("module:my-backend");
+              if (name.startsWith("docs/")) labels.add("module:docs");
+            }
+
+            if (labels.size > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: Array.from(labels)
+              });
+            }
