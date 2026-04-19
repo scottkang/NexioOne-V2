@@ -92,3 +92,4 @@
 - `docs/spec/api/api-spec.md`
 - `docs/spec/security/security-authority-matrix.md`
 - `docs/spec/modules/my-console.md`
+- `docs/spec/guides/my-console-page-entity-view-model-spec.md`

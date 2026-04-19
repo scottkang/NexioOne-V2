@@ -55,4 +55,5 @@ NexioOne의 프론트엔드 웹 애플리케이션으로, 사용자가 프로젝
 - [Product Spec](../foundation/product-spec.md)
 - [API Spec](../api/api-spec.md)
 - [Frontend Development Guide](../guides/frontend-development-guide.md)
+- [my-console Page Entity & View-Model Spec](../guides/my-console-page-entity-view-model-spec.md)
 - [Security Authority Matrix](../security/security-authority-matrix.md)
