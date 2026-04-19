@@ -3,7 +3,10 @@
 ## Documentation Rules
 - Mermaid 노드 라벨 줄바꿈은 `\n` 대신 `<br/>`를 사용한다.
 - 문서 인덱스에는 현재 저장소에 실제로 존재하는 파일만 유지한다.
-- 구현 결과와 목표 설계를 혼용하지 않도록 각 문서의 상태(`Baseline`, `Draft`, `Design`)를 명시한다.
+- 구현 결과와 목표 설계를 혼용하지 않도록 각 문서의 상태를 아래 집합으로 명시한다.
+- `Baseline`: 현재 프로그램 기준선으로 직접 참조하는 문서
+- `Draft/Design`: 목표 설계 또는 후속 보강이 남은 문서
+- `Not Implemented`: 제품 범위에는 포함되지만 구현 전 상태의 모듈/영역 설명 문서
 
 ## Recommended Reading Order
 

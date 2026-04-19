@@ -1,6 +1,6 @@
 # High Availability (HA) & Disaster Recovery (DR) Operations
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Related Modules**: Infrastructure, Database, Redis, MinIO
 
 ## 1. 개요
