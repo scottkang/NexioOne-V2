@@ -8,15 +8,16 @@
 - backlog 재정리는 `#21` / PR `#22`로 `main` 머지 완료되었다.
 - `P1-1`은 `#23` / PR `#24`로 `main` 머지 완료되었다.
 - `P1-2`는 `#25` / PR `#26`으로 `main` 머지 완료되었다.
-- 문서 상태/링크 체계 정리 작업을 진행 중이다.
-- 이번 세션 기준 작업 브랜치는 `type/27-doc-status-link-cleanup`다.
-- GitHub 이슈는 `#27 [feat] 문서 상태 및 링크 체계 정리`다.
+- 문서 상태/링크 체계 정리는 `#27` / PR `#28`로 `main` 머지 완료되었다.
+- `my-console` 페이지별 entity/view-model 명세 추가 작업을 진행 중이다.
+- 이번 세션 기준 작업 브랜치는 `type/29-my-console-view-model-spec`다.
+- GitHub 이슈는 `#29 [feat] my-console 페이지별 엔티티 및 view-model 명세 추가`다.
 
 ## 이번 세션에서 완료된 작업 / PR
 - 작업:
-  - `#25` / PR `#26` 머지 상태 확인
-  - `#27` 이슈 생성 및 `type/27-doc-status-link-cleanup` 브랜치 생성
-  - 상태 표기 허용 집합 및 깨진 링크 정리 착수
+  - `#27` / PR `#28` 머지 상태 확인
+  - `#29` 이슈 생성 및 `type/29-my-console-view-model-spec` 브랜치 생성
+  - 페이지/엔티티/view-model/prop 계약 문서화 착수
 - PR:
   - `#14` merged
   - `#16` merged
@@ -25,15 +26,16 @@
   - `#22` merged
   - `#24` merged
   - `#26` merged
-  - `#27` 아직 생성 전
+  - `#28` merged
+  - `#29` 아직 생성 전
 
 ## 다음 세션 시작 순서
-1. `#27` 작업에서 상태 표기와 링크 정리를 마무리한다.
-2. `#27` PR을 생성하고 CI 상태를 확인한다.
-3. 문서 backlog 종료 여부와 구현 착수 순서를 재평가한다.
+1. `#29` 작업에서 주요 페이지별 entity/DTO/view-model/prop 계약을 마무리한다.
+2. `#29` PR을 생성하고 CI 상태를 확인한다.
+3. `my-console` 또는 `my-console-backend` 실제 구현 착수 순서를 확정한다.
 
 ## 우선순위 작업
-- 문서 상태/링크 체계 정리
+- `my-console` 페이지별 entity/view-model 명세 추가
 - 구현 착수 전 최종 문서 backlog 점검
 
 ## 리스크 / 주의 사항

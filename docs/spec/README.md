@@ -130,6 +130,7 @@
 
 ## Guides
 - `guides/frontend-development-guide.md`: 프론트엔드 개발 가이드
+- `guides/my-console-page-entity-view-model-spec.md`: `my-console` 페이지별 entity/DTO/view-model/prop 계약
 - `guides/ui-component-spec.md`: UI 컴포넌트 상세 명세
 - `guides/api-gw-extension-guide.md`: Envoy 확장 가이드
 - `guides/user-manual-flow-designer.md`: Flow 설계/테스트/배포 사용자 가이드

@@ -70,6 +70,10 @@
 - **Style**: **Tailwind CSS**를 기본으로 하며, 컴포넌트의 상태에 따른 스타일 변경은 `class-variance-authority (CVA)` 또는 `tailwind-merge`를 사용하여 선언적으로 관리.
 - **Logic Separation**: UI 렌더링 외의 복잡한 로직은 별도의 `hooks`로 분리하여 컴포넌트의 가독성을 확보.
 
+### 5.3 현재 프로그램 구현 기준
+- 이번 프로그램 범위 페이지의 entity/DTO/view-model/prop 계약은 `guides/my-console-page-entity-view-model-spec.md`를 구현 기준으로 사용한다.
+- 본 문서는 아키텍처/상세 설계 방향을 설명하고, 실제 페이지 필드 계약은 위 문서를 우선 기준으로 해석한다.
+
 ## 6. 핵심 컴포넌트 상세 설계
 
 ### 6.1 Flow Designer (Workflow Editor)
