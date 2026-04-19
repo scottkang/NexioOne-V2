@@ -1,6 +1,6 @@
 # Operational Security & Key Management Guide
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Related Modules**: my-console-backend, my-backend
 
 ## 1. 개요

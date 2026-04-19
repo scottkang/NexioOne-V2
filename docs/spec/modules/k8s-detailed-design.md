@@ -1,6 +1,6 @@
 # k8s Detailed Design (Helm Chart & Resource Management)
 
-**Status**: [Draft/Detailed Design]
+**Status**: [Draft/Design]
 **Parent Module**: [k8s](k8s.md)
 
 ## 1. 개요

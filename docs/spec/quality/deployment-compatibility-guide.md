@@ -1,6 +1,6 @@
 # Deployment & Compatibility Guide
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Related Modules**: my-backend, my-console-backend, plugins
 
 ## 1. 개요

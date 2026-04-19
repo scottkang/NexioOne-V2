@@ -1,6 +1,6 @@
 # logging-service Detailed Design (Event Consumption & Hybrid Observability)
 
-**Status**: [Draft/Detailed Design]
+**Status**: [Draft/Design]
 **Parent Module**: [logging-service](logging-service.md)
 **Related Architecture**: [Runtime Execution Logging Architecture](../runtime/runtime-execution-logging-architecture.md)
 

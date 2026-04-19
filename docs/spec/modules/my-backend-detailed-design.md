@@ -1,6 +1,6 @@
 # my-backend Execution Engine Detailed Design (Context, Streaming & Flow Control)
 
-**Status**: [Draft/Detailed Design]
+**Status**: [Draft/Design]
 **Parent Module**: [my-backend](my-backend.md)
 **Related Design**: [runtime-node-support-matrix.md](../runtime/runtime-node-support-matrix.md)
 

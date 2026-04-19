@@ -1,6 +1,6 @@
 # plugins Detailed Design (Custom ClassLoader & Lifecycle)
 
-**Status**: [Draft/Detailed Design]
+**Status**: [Draft/Design]
 **Parent Module**: [plugins](plugins.md)
 **Related ADR**: `ADR-001: Runtime Component Artifact Separation` (문서 미존재)
 

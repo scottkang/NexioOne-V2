@@ -1,6 +1,6 @@
 # User Guide: Flow Designer & Component Catalog
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Target Audience**: Flow Developers, Data Analysts, System Admins
 
 ## 1. 개요

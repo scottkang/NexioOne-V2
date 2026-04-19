@@ -1,6 +1,6 @@
 # Production Readiness & Unified Checklist
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Related Modules**: All Modules
 
 ## 1. 개요

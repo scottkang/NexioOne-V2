@@ -1,6 +1,6 @@
 # api-gw Detailed Design (Envoy xDS & Filter)
 
-**Status**: [Draft/Detailed Design]
+**Status**: [Draft/Design]
 **Parent Module**: [api-gw](api-gw.md)
 
 ## 1. 개요

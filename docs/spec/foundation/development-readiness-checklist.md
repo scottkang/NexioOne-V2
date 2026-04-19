@@ -1,6 +1,6 @@
 # Development Readiness Checklist
 
-**Status**: [Draft]
+**Status**: [Draft/Design]
 **Related Modules**: `my-console`, `my-console-backend`, `my-backend`, `api-gw`, `logging-service`, `plugins`, `k8s`
 
 ## 1. 목적

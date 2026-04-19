@@ -1,6 +1,6 @@
 # plugins Specification
 
-**Status**: [Skeleton/Design] - 런타임 컴포넌트 아티팩트 분리 및 로더 골격 설계 완료.
+**Status**: [Draft/Design] - 런타임 컴포넌트 아티팩트 분리 및 로더 골격 설계 완료.
 
 ## 개요
 NexioOne 워크플로우 내에서 사용되는 각종 어댑터, 함수, 변환기 등 개별 단위 기능(FlowNode)들을 제공하는 런타임 컴포넌트 계열의 논리 모듈이다.
