@@ -72,12 +72,18 @@
 
 ### 5.3 현재 프로그램 구현 기준
 - 이번 프로그램 범위 페이지의 entity/DTO/view-model/prop 계약은 `guides/my-console-page-entity-view-model-spec.md`를 구현 기준으로 사용한다.
+- 페이지 섹션 배치와 wire 수준 구조는 `guides/my-console-page-layout-wire-spec.md`를 사용한다.
 - 필드 표시/편집/검증 기준은 `guides/my-console-page-field-matrix.md`를 사용한다.
 - 필드별 validation/default/placeholder/help text는 `guides/my-console-field-validation-rules.md`를 사용한다.
 - 공통 컴포넌트 계약은 `guides/my-console-component-contracts.md`를 사용한다.
+- prop/event/default/책임 분리는 `guides/my-console-component-prop-event-matrix.md`를 사용한다.
+- 페이지/API 호출 시퀀스와 invalidate 규칙은 `guides/my-console-api-interaction-sequence-spec.md`를 사용한다.
 - 목록/폼 상호작용은 `guides/my-console-table-and-form-behavior-spec.md`를 사용한다.
 - 에러 코드별 UI 해석은 `guides/my-console-error-message-mapping.md`를 사용한다.
+- UI 카피는 `guides/my-console-ui-copy-spec.md`를 사용한다.
+- Flow Editor 상호작용은 `guides/my-console-flow-editor-interaction-spec.md`를 사용한다.
 - Flow Editor node/edge/inspector 세부 계약은 `guides/my-console-flow-editor-node-contracts.md`를 사용한다.
+- 프론트 코드 구조와 hook/query/mapper 기준은 `guides/my-console-frontend-code-structure-spec.md`를 사용한다.
 - 구현 검증 시나리오는 `guides/my-console-page-test-scenario-matrix.md`를 사용한다.
 - 페이지 상태 전이와 라우팅/IA는 각각 `guides/my-console-page-state-transition-spec.md`, `guides/my-console-routing-ia-spec.md`를 사용한다.
 - 본 문서는 아키텍처/상세 설계 방향을 설명하고, 실제 페이지 필드 계약은 위 문서를 우선 기준으로 해석한다.
