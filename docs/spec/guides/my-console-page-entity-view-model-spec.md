@@ -415,6 +415,10 @@
 - `docs/spec/modules/my-console.md`
 - `docs/spec/modules/my-console-detailed-design.md`
 - `docs/spec/guides/frontend-development-guide.md`
+- `docs/spec/guides/my-console-page-field-matrix.md`
+- `docs/spec/guides/my-console-component-contracts.md`
+- `docs/spec/guides/my-console-page-state-transition-spec.md`
+- `docs/spec/guides/my-console-routing-ia-spec.md`
 - `docs/spec/guides/ui-component-spec.md`
 - `docs/spec/api/control-plane-api-baseline.md`
 - `docs/spec/api/api-spec.md`
