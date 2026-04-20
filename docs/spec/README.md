@@ -130,6 +130,7 @@
 
 ## Guides
 - `guides/frontend-development-guide.md`: 프론트엔드 개발 가이드
+- `guides/my-console-accessibility-checklist.md`: `my-console` 접근성 구현 체크리스트
 - `guides/my-console-api-interaction-sequence-spec.md`: `my-console` 페이지/API 호출 순서 및 invalidate 기준
 - `guides/my-console-component-contracts.md`: `my-console` 공통 컴포넌트 prop/event 계약
 - `guides/my-console-component-prop-event-matrix.md`: `my-console` 컴포넌트 prop/event/default/책임 매트릭스
@@ -138,13 +139,18 @@
 - `guides/my-console-flow-editor-interaction-spec.md`: `my-console` Flow Editor 상호작용 규칙
 - `guides/my-console-flow-editor-node-contracts.md`: `my-console` Flow Editor node/edge/inspector 세부 계약
 - `guides/my-console-frontend-code-structure-spec.md`: `my-console` 프론트 코드 구조와 hook/query/mapper 기준
+- `guides/my-console-page-acceptance-checklist.md`: `my-console` 페이지별 구현 완료 체크리스트
+- `guides/my-console-page-component-tree-spec.md`: `my-console` 페이지별 container/presenter 컴포넌트 트리
 - `guides/my-console-page-layout-wire-spec.md`: `my-console` 페이지 섹션 배치와 wire 수준 구조
 - `guides/my-console-page-field-matrix.md`: `my-console` 페이지별 필드 표시/편집/검증 기준
 - `guides/my-console-page-entity-view-model-spec.md`: `my-console` 페이지별 entity/DTO/view-model/prop 계약
+- `guides/my-console-page-state-machine-spec.md`: `my-console` 페이지 상태 머신 기준
 - `guides/my-console-page-test-scenario-matrix.md`: `my-console` 페이지별 구현 검증 시나리오
 - `guides/my-console-page-state-transition-spec.md`: `my-console` 페이지 상태 전이 및 에러 처리 기준
+- `guides/my-console-query-mutation-spec.md`: `my-console` React Query key/options/invalidate 기준
 - `guides/my-console-routing-ia-spec.md`: `my-console` 라우팅/정보구조/breadcrumb 기준
 - `guides/my-console-table-and-form-behavior-spec.md`: `my-console` 목록/폼 상호작용 기준
+- `guides/my-console-typescript-interface-spec.md`: `my-console` TypeScript interface shape 기준
 - `guides/my-console-ui-copy-spec.md`: `my-console` empty/confirm/toast/helper copy 기준
 - `guides/ui-component-spec.md`: UI 컴포넌트 상세 명세
 - `guides/api-gw-extension-guide.md`: Envoy 확장 가이드
