@@ -74,6 +74,7 @@
 - 이번 프로그램 범위 페이지의 entity/DTO/view-model/prop 계약은 `guides/my-console-page-entity-view-model-spec.md`를 구현 기준으로 사용한다.
 - 페이지별 컴포넌트 트리는 `guides/my-console-page-component-tree-spec.md`를 사용한다.
 - 페이지 섹션 배치와 wire 수준 구조는 `guides/my-console-page-layout-wire-spec.md`를 사용한다.
+- 페이지별 표현 속성/위치/widget/payload/dirty 기준은 `guides/my-console-page-presentation-attributes-spec.md`를 사용한다.
 - 필드 표시/편집/검증 기준은 `guides/my-console-page-field-matrix.md`를 사용한다.
 - 필드별 validation/default/placeholder/help text는 `guides/my-console-field-validation-rules.md`를 사용한다.
 - TypeScript interface shape는 `guides/my-console-typescript-interface-spec.md`를 사용한다.

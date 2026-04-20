@@ -94,6 +94,7 @@
 - `docs/spec/modules/my-console.md`
 - `docs/spec/guides/my-console-page-component-tree-spec.md`
 - `docs/spec/guides/my-console-page-layout-wire-spec.md`
+- `docs/spec/guides/my-console-page-presentation-attributes-spec.md`
 - `docs/spec/guides/my-console-field-validation-rules.md`
 - `docs/spec/guides/my-console-page-field-matrix.md`
 - `docs/spec/guides/my-console-page-entity-view-model-spec.md`

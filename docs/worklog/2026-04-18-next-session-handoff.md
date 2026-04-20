@@ -13,15 +13,16 @@
 - `my-console` 구현 기준 문서 보강은 `#31` / PR `#32`로 `main` 머지 완료되었다.
 - `my-console` 세부 구현 명세 보강은 `#33` / PR `#34`로 `main` 머지 완료되었다.
 - `my-console` 화면/상호작용 명세 보강은 `#35` / PR `#36`으로 `main` 머지 완료되었다.
-- `my-console` 코드 직전 설계 명세 보강 작업을 진행 중이다.
-- 이번 세션 기준 작업 브랜치는 `type/37-my-console-precode-specs`다.
-- GitHub 이슈는 `#37 [feat] my-console 코드 직전 설계 명세 보강`이다.
+- `my-console` 코드 직전 설계 명세 보강은 `#37` / PR `#38`으로 `main` 머지 완료되었다.
+- `my-console` 페이지 표현 속성 명세 추가 작업을 진행 중이다.
+- 이번 세션 기준 작업 브랜치는 `type/39-my-console-page-presentation-attributes`다.
+- GitHub 이슈는 `#39 [feat] my-console 페이지 표현 속성 명세 추가`다.
 
 ## 이번 세션에서 완료된 작업 / PR
 - 작업:
-  - `#35` / PR `#36` 머지 상태 확인
-  - `#37` 이슈 생성 및 `type/37-my-console-precode-specs` 브랜치 생성
-  - component tree / TypeScript interface / query-mutation / state machine / accessibility / acceptance checklist 문서화 착수
+  - `#37` / PR `#38` 머지 상태 확인
+  - `#39` 이슈 생성 및 `type/39-my-console-page-presentation-attributes` 브랜치 생성
+  - 페이지별 표현 속성/위치/widget/payload/dirty 문서화 착수
 - PR:
   - `#14` merged
   - `#16` merged
@@ -35,15 +36,16 @@
   - `#32` merged
   - `#34` merged
   - `#36` merged
+  - `#38` merged
   - current session PR 아직 생성 전
 
 ## 다음 세션 시작 순서
-1. `#37` 작업에서 `my-console` 코드 직전 설계 명세 보강을 마무리한다.
-2. `#37` PR을 생성하고 CI 상태를 확인한다.
+1. `#39` 작업에서 `my-console` 페이지 표현 속성 명세를 마무리한다.
+2. `#39` PR을 생성하고 CI 상태를 확인한다.
 3. 문서 기준으로 `my-console` 실제 구현 착수 순서를 확정한다.
 
 ## 우선순위 작업
-- `my-console` component tree / type / query / state machine / accessibility / acceptance 보강
+- `my-console` 페이지 표현 속성/section/widget/payload/dirty 보강
 - 구현 착수 전 최종 프론트 문서 backlog 점검
 
 ## 리스크 / 주의 사항

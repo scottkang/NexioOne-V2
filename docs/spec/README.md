@@ -142,6 +142,7 @@
 - `guides/my-console-page-acceptance-checklist.md`: `my-console` 페이지별 구현 완료 체크리스트
 - `guides/my-console-page-component-tree-spec.md`: `my-console` 페이지별 container/presenter 컴포넌트 트리
 - `guides/my-console-page-layout-wire-spec.md`: `my-console` 페이지 섹션 배치와 wire 수준 구조
+- `guides/my-console-page-presentation-attributes-spec.md`: `my-console` 페이지별 표현 속성/위치/widget/payload/dirty 기준
 - `guides/my-console-page-field-matrix.md`: `my-console` 페이지별 필드 표시/편집/검증 기준
 - `guides/my-console-page-entity-view-model-spec.md`: `my-console` 페이지별 entity/DTO/view-model/prop 계약
 - `guides/my-console-page-state-machine-spec.md`: `my-console` 페이지 상태 머신 기준

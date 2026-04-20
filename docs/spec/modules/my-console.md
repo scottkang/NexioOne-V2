@@ -57,6 +57,7 @@ NexioOne의 프론트엔드 웹 애플리케이션으로, 사용자가 프로젝
 - [Frontend Development Guide](../guides/frontend-development-guide.md)
 - [my-console Page Component Tree Spec](../guides/my-console-page-component-tree-spec.md)
 - [my-console Page Layout Wire Spec](../guides/my-console-page-layout-wire-spec.md)
+- [my-console Page Presentation Attributes Spec](../guides/my-console-page-presentation-attributes-spec.md)
 - [my-console Field Validation Rules](../guides/my-console-field-validation-rules.md)
 - [my-console Page Field Matrix](../guides/my-console-page-field-matrix.md)
 - [my-console Page Entity & View-Model Spec](../guides/my-console-page-entity-view-model-spec.md)
