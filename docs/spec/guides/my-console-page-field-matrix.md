@@ -171,6 +171,8 @@
 | `outputPreview` | Derived | Y | N | N | `null` | JSON preview |
 
 ## 5. 참조
+- `docs/spec/guides/my-console-field-validation-rules.md`
+- `docs/spec/guides/my-console-table-and-form-behavior-spec.md`
 - `docs/spec/guides/my-console-page-entity-view-model-spec.md`
 - `docs/spec/guides/my-console-page-state-transition-spec.md`
 - `docs/spec/guides/my-console-routing-ia-spec.md`

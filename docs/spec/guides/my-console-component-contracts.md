@@ -163,4 +163,6 @@
 ## 8. 참조
 - `docs/spec/guides/my-console-page-entity-view-model-spec.md`
 - `docs/spec/guides/my-console-page-field-matrix.md`
+- `docs/spec/guides/my-console-table-and-form-behavior-spec.md`
+- `docs/spec/guides/my-console-flow-editor-node-contracts.md`
 - `docs/spec/guides/ui-component-spec.md`

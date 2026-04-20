@@ -92,8 +92,13 @@
 - `docs/spec/api/api-spec.md`
 - `docs/spec/security/security-authority-matrix.md`
 - `docs/spec/modules/my-console.md`
+- `docs/spec/guides/my-console-field-validation-rules.md`
 - `docs/spec/guides/my-console-page-field-matrix.md`
 - `docs/spec/guides/my-console-page-entity-view-model-spec.md`
 - `docs/spec/guides/my-console-component-contracts.md`
+- `docs/spec/guides/my-console-table-and-form-behavior-spec.md`
+- `docs/spec/guides/my-console-error-message-mapping.md`
+- `docs/spec/guides/my-console-flow-editor-node-contracts.md`
+- `docs/spec/guides/my-console-page-test-scenario-matrix.md`
 - `docs/spec/guides/my-console-page-state-transition-spec.md`
 - `docs/spec/guides/my-console-routing-ia-spec.md`
